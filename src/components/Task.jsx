@@ -23,7 +23,7 @@ export default function Task() {
                                 <hr />
                                 <h1>{todo.title}</h1>
 
-                                <h3>{todo.description}</h3>
+                                <h3 className='task-desc'>{todo.description}</h3>
 
                                 <p className='create'>{`Created at - ${todo.createDate}`}</p>
 
