@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const TodoContext = createContext();
 
@@ -9,14 +10,15 @@ export const useTodo = () => {
 export const TodoProvider = (props) => {
     const [inputTodo, setInputTodo] = useState('');
     const [description, setDescription] = useState('');
+    const [createDate, setCreateDate] = useState('')
     const [todos, setTodos] = useState(() => {
         // Get todos from local storage during initialization
-
         const storedTodos = localStorage.getItem('taskify');
         return storedTodos ? JSON.parse(storedTodos) : [];
     });
     const [editedText, setEditedText] = useState('');
     const [editedDescription, setEditedDescription] = useState('');
+    const [updateDate, setUpdateDate] = useState('')
     const [editStatus, setEditStaus] = useState(false);
     const [editId, setEditId] = useState(null);
     const [showForm, setShowForm] = useState(false);
@@ -27,27 +29,27 @@ export const TodoProvider = (props) => {
         localStorage.setItem('taskify', JSON.stringify(todos));
     }, [todos]);
 
-    const addTodo = (title, description, date) => {
-        const id = Date.now();
+    const addTodo = (title, description, createDate) => {
+        const id = uuidv4()
         setTodos([
             {
                 id: id,
                 title: title,
                 description: description,
-                date: date,
+                createDate: createDate
             },
             ...todos
         ]);
     };
 
-    const updateTodo = (id, title, description, date) => {
+    const updateTodo = (id, title, description, updateDate) => {
         const updatedTodos = todos.map((todo) => {
             if (todo.id === id) {
                 return {
                     ...todo,
                     title: title,
                     description: description,
-                    date: date
+                    updateDate: updateDate
                 };
             }
             return todo;
@@ -65,12 +67,16 @@ export const TodoProvider = (props) => {
         setInputTodo,
         description,
         setDescription,
+        createDate,
+        setCreateDate,
         todos,
         setTodos,
         editedText,
         setEditedText,
         editedDescription,
         setEditedDescription,
+        updateDate,
+        setUpdateDate,
         editStatus,
         setEditStaus,
         editId,

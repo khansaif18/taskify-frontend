@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function Card({ title, description, date, handleRemove, handleEdit }) {
+export default function Card({ title, description, date, cardClick, handleRemove, handleEdit }) {
     return (
-        <div className="card">
+        <div className="card" onClick={cardClick}>
             <h3 className="card__title"> {title} </h3>
             <p className="card__content"> {description} </p>
             <div className="card__date"> {date}</div>

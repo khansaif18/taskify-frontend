@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTodo } from '../context/TodoProvider'
 import toast from 'react-hot-toast'
+import Button from './Button'
+
 
 export default function EditTodo() {
 
@@ -9,8 +11,10 @@ export default function EditTodo() {
     const handleSubmit = (e) => {
         e.preventDefault()
         const currentDate = new Date().toLocaleString()
+        const desc = todo.editedDescription === '' ? 'No Description Given 🤷‍♂️' : todo.editedDescription;
         if (todo.editedText !== '') {
-            todo.updateTodo(todo.editId, todo.editedText, todo.editedDescription, currentDate)
+            todo.updateTodo(todo.editId, todo.editedText, desc, currentDate)
+            todo.setUpdateDate(currentDate)
             todo.setEditStaus(false)
             toast.success('Task Updated Successfully')
         }
@@ -29,7 +33,8 @@ export default function EditTodo() {
                     autoFocus
                 />
 
-                <input
+                <textarea
+                    rows='2'
                     type='text'
                     placeholder='Edit the Description...'
                     value={todo.editedDescription}
@@ -37,8 +42,9 @@ export default function EditTodo() {
                     autoComplete='off'
                 />
 
-                <button>Update Task 🡆</button>
-                <button className='close-form' onClick={() => todo.setEditStaus(false)}>✖</button>
+                <Button name='Update Task' />
+
+                <span className='close-form' onClick={() => todo.setEditStaus(false)}>✖</span>
             </form>
         </div>
     )

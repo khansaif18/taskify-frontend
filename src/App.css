@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .app {
-  min-height: 90vh;
+  min-height: 95vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -20,7 +20,7 @@
   height: 100px;
   margin-top: -15px;
   padding: 0 2rem;
-  width: 80%;
+  width: 100% !important;
   position: fixed;
   top: 0;
   z-index: 99;
@@ -51,14 +51,20 @@
   margin-top: 5rem;
   align-items: center;
   flex-direction: column;
-  opacity: 0.4;
 }
 
 .no-tasks h1 {
+  color: #cccccc5a;
   letter-spacing: 1px;
 }
 
+.no-tasks h1 span{
+  color: #7257fa;
+}
+
 .no-tasks h3 {
+  color: #cccccc5a;
+  font-weight: 600;
   letter-spacing: 1px;
   margin-top: -1rem;
 }
@@ -150,39 +156,6 @@
   pointer-events: none;
 }
 
-/* Plus Icon */
-
-.plus {
-  position: fixed;
-  bottom: 3rem;
-}
-
-.plus-icon {
-  padding: 1em 3em;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 500;
-  color: #ccc;
-  background-color: #9b989850;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
-}
-
-.plus-icon:hover {
-  background-color: #7257fa;
-  box-shadow: 0px 5px 10px rgba(73, 51, 199, 0.2);
-  color: #fff;
-  transform: translateY(-3px);
-}
-
-.plus-icon:active {
-  transform: translateY(-1px);
-}
 
 /* Input */
 
@@ -214,11 +187,27 @@
   letter-spacing: 1px;
   padding: 9px 2rem;
   background-color: #544f4f61;
-  color: #ccc;
-  border-radius: 1rem;
+  color: #ccccccc5;
+  border-radius: 2rem;
+}
+
+.form input:focus {
+  color: #fff;
+}
+
+.form textarea {
+  width: 80%;
+  border: none;
+  outline: none;
+  letter-spacing: 1px;
+  padding: 9px 2rem;
+  background-color: #544f4f61;
+  color: #ccccccc5;
+  border-radius: 2rem;
 }
 
 .form button {
+  outline: none;
   border: none;
   border-radius: 1rem;
   padding: 8px 1rem;
@@ -231,8 +220,8 @@
 
 .close-form {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 10px;
+  right: 15px;
   font-size: 1.2rem;
   cursor: pointer;
   background: none !important;
@@ -281,6 +270,7 @@
 @media (max-width: 600px) {
   .card {
     width: 310px !important;
+    z-index: 1;
   }
 }
 
@@ -288,6 +278,10 @@
   padding: 0;
   font-size: 1.3rem;
   font-weight: bold;
+}
+
+.card .card__title::first-letter {
+  text-transform: uppercase;
 }
 
 .card .card__content {
@@ -307,9 +301,10 @@
 }
 
 .card .card__arrow {
+  z-index: 2;
   position: absolute;
   background: var(--primary-color);
-  padding: 0.4rem 1rem;
+  padding: 3px 1rem;
   border-top-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
   bottom: 0;
@@ -328,16 +323,478 @@
   background: #373636;
 }
 
-.pencil {
-  border-right: 1px solid;
-  padding-right: 10px;
+.card .card__arrow .pencil {
+  border-right: 1px solid #ccc;
+  padding-right: 15px;
 }
 
 .icon {
+  padding: 5px 6px;
   opacity: 0.5;
   transition: 0.2s ease-in;
 }
 
 .icon:hover {
   opacity: 1;
+}
+
+.task-main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  border-radius: 20px;
+  padding: 1rem 3rem;
+  gap: 0;
+  margin-top: 6rem;
+  background: #212121;
+  width: 40vw;
+  position: relative;
+}
+
+.task hr {
+  height: 0;
+  width: 100%;
+  opacity: 0.5;
+  border: none;
+  border-top: 1px solid rgba(146, 143, 143, 0.329);
+  margin-top: 2.1rem;
+}
+
+
+.task h1 {
+  margin-top: -0.2rem;
+  margin-bottom: -10px;
+  opacity: 0.8;
+}
+
+.task h1::first-letter,
+.task h3::first-letter {
+  text-transform: uppercase;
+}
+
+.task h3 {
+  font-weight: 500;
+  font-size: 15px;
+  opacity: 0.3;
+}
+
+.task .create-update-btn {
+  position: absolute;
+  bottom: 0;
+  right: 1.5rem;
+  padding: 2rem 15px 0 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task .create {
+  color: #cccc;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  position: absolute;
+  top: 5px;
+  right: 3rem;
+}
+
+.task .update {
+  color: #cccc;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .task {
+    width: 60vw;
+  }
+
+  .task h1 {
+    font-size: 1.7rem;
+  }
+
+  .task h3 {
+    font-size: 0.8rem;
+  }
+
+  .task .create-update-btn {
+    right: 0;
+  }
+
+  .task .update,
+  .task .create {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 600px) {
+  .task {
+    width: 80vw;
+    padding: 1.5rem;
+  }
+
+  .task h1 {
+    font-size: 1.2rem;
+    width: 100%;
+  }
+
+  .task .create {
+    font-size: 10px;
+    right: 1.5rem;
+    top: 8px;
+  }
+
+  .task .update {
+    font-size: 10px;
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* Button (Plus Icon) */
+
+.plus {
+  position: fixed;
+  bottom: 3rem;
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+.button {
+  position: relative;
+  letter-spacing: 1px;
+  width: 160px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #7257fa;
+  background-color: #7257fa;
+}
+
+.button,
+.button__icon,
+.button__text {
+  transition: all 0.3s;
+}
+
+.button .button__text {
+  transform: translateX(30px);
+  color: #fff;
+  font-weight: 600;
+}
+
+.button .button__icon {
+  position: absolute;
+  transform: translateX(109px);
+  height: 100%;
+  width: 39px;
+  background-color: #7257fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button .svg {
+  width: 30px;
+  stroke: #fff;
+}
+
+.button:hover {
+  background: #7257fa;
+}
+
+.button:hover .button__text {
+  color: transparent;
+}
+
+.button:hover .button__icon {
+  width: 148px;
+  transform: translateX(0);
+}
+
+.button:active .button__icon {
+  background-color: #7257fa;
+}
+
+.button:active {
+  border: 1px solid #7257fa;
+}
+
+/* Delete Btn */
+
+.delete {
+  position: relative;
+  padding: 6px 22px;
+  border-radius: 3rem !important;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #fff;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #7d2ae8;
+  transition: all 0.2s ease;
+}
+
+.delete:active {
+  transform: scale(0.96);
+}
+
+.delete:before,
+.delete:after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1000;
+  background-repeat: no-repeat;
+}
+
+.delete:hover:before {
+  top: -70%;
+  background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #7d2ae8 20%, transparent 30%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+  background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+    10% 10%, 18% 18%;
+  background-position: 50% 120%;
+  animation: greentopBubbles 0.6s ease;
+}
+
+@keyframes greentopBubbles {
+  0% {
+    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+      40% 90%, 55% 90%, 70% 90%;
+  }
+
+  50% {
+    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+      50% 50%, 65% 20%, 90% 30%;
+  }
+
+  100% {
+    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+      50% 40%, 65% 10%, 90% 20%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+.delete:hover::after {
+  bottom: -70%;
+  background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+    radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+  background-position: 50% 0%;
+  animation: greenbottomBubbles 0.6s ease;
+}
+
+@keyframes greenbottomBubbles {
+  0% {
+    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+      70% -10%, 70% 0%;
+  }
+
+  50% {
+    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+      105% 0%;
+  }
+
+  100% {
+    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+      110% 10%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+/* Tooltip */
+
+.uiverse {
+  position: relative;
+  background: none;
+  color: #fff;
+  padding: 0 5px;
+  border: 1px solid #cccccc21;
+  margin: 10px 5px;
+  border-radius: 2rem;
+  width: 55px;
+  height: 30px;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  opacity: 0.5;
+}
+
+
+.tooltip {
+  position: absolute;
+  width: 65px;
+  top: 0;
+  font-size: 13px;
+  background: #ffffff;
+  color: #ffffff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.uiverse:hover .tooltip {
+  top: -38px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+svg:hover span,
+svg:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.uiverse:hover,
+.uiverse:hover .tooltip,
+.uiverse:hover .tooltip::before {
+  background: linear-gradient(320deg, #7257fae8, #7257fac5);
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* Back Button */
+
+.back {
+  font-weight: bold;
+  color: white;
+  border-radius: 2rem;
+  cursor: pointer;
+  width: 95.02px;
+  height: 30px;
+  border: none;
+  background-color: #57565639;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  margin-left: -8px;
+  opacity: 0.5;
+}
+
+.back:hover {
+  background-color: #7257fa;
+  opacity: 0.8;
+}
+
+.back .span-mother {
+  gap: 1px;
+  display: flex;
+  overflow: hidden;
+}
+
+.back:hover .span-mother {
+  position: absolute;
+}
+
+.back:hover .span-mother span {
+  transform: translateY(1.2em);
+}
+
+.back .span-mother span:nth-child(1) {
+  margin-right: 4px;
+  transition: 0.2s;
+}
+
+.back .span-mother span:nth-child(2) {
+  transition: 0.3s;
+}
+
+.back .span-mother span:nth-child(3) {
+  transition: 0.4s;
+}
+
+.back .span-mother span:nth-child(4) {
+  transition: 0.5s;
+}
+
+.back .span-mother span:nth-child(5) {
+  transition: 0.6s;
+}
+
+.back .span-mother2 {
+  gap: 1px;
+  display: flex;
+  position: absolute;
+  overflow: hidden;
+}
+
+.back .span-mother2 span {
+  transform: translateY(-1.2em);
+}
+
+.back:hover .span-mother2 span {
+  transform: translateY(0);
+}
+
+.back .span-mother2 span {
+  transition: 0.2s;
+}
+
+.back .span-mother2 span:nth-child(1) {
+  margin-right: 4px;
+  transition: 0.3s;
+}
+
+.back .span-mother2 span:nth-child(2) {
+  transition: 0.3s;
+}
+
+.back .span-mother2 span:nth-child(3) {
+  transition: 0.4s;
+}
+
+.back .span-mother2 span:nth-child(4) {
+  transition: 0.5s;
+}
+
+.back .span-mother2 span:nth-child(5) {
+  transition: 0.6s;
 }
