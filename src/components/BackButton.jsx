@@ -9,14 +9,14 @@ export default function BackButton() {
 
     return (
         <button className='back' onClick={() => navigate('/')}>
-            <span class="span-mother">
+            <span className="span-mother">
                 <span><FontAwesomeIcon icon={faArrowLeft} /></span>
                 <span>B</span>
                 <span>a</span>
                 <span>c</span>
                 <span>k</span>
             </span>
-            <span class="span-mother2">
+            <span className="span-mother2">
                 <span><FontAwesomeIcon icon={faArrowLeft} /></span>
                 <span>B</span>
                 <span>a</span>

@@ -34,6 +34,7 @@ export default function Todos() {
                         date={task.createDate}
                         description={task.description.length > 25 ? task.description.slice(0, 50) + '...' : task.description}
                         cardClick={() => navigate(`/task/${task.id}`)}
+                        isComp={task.isCompleted}
                         handleRemove={(e) => {
                             e.stopPropagation();
                             todo.removeTodo(task.id)

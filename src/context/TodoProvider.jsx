@@ -10,34 +10,32 @@ export const useTodo = () => {
 export const TodoProvider = (props) => {
     const [inputTodo, setInputTodo] = useState('');
     const [description, setDescription] = useState('');
-    const [createDate, setCreateDate] = useState('')
+    const [createDate, setCreateDate] = useState('');
     const [todos, setTodos] = useState(() => {
-        // Get todos from local storage during initialization
         const storedTodos = localStorage.getItem('taskify');
         return storedTodos ? JSON.parse(storedTodos) : [];
     });
     const [editedText, setEditedText] = useState('');
     const [editedDescription, setEditedDescription] = useState('');
-    const [updateDate, setUpdateDate] = useState('')
+    const [updateDate, setUpdateDate] = useState('');
     const [editStatus, setEditStaus] = useState(false);
     const [editId, setEditId] = useState(null);
     const [showForm, setShowForm] = useState(false);
-    const [socialShow, setSocialShow] = useState(false)
-
-    // Save todos to local storage whenever the todos state changes
+    const [socialShow, setSocialShow] = useState(false);
 
     useEffect(() => {
         localStorage.setItem('taskify', JSON.stringify(todos));
     }, [todos]);
 
     const addTodo = (title, description, createDate) => {
-        const id = uuidv4()
+        const id = uuidv4();
         setTodos([
             {
                 id: id,
                 title: title,
                 description: description,
-                createDate: createDate
+                createDate: createDate,
+                isCompleted: false 
             },
             ...todos
         ]);
@@ -60,6 +58,19 @@ export const TodoProvider = (props) => {
 
     const removeTodo = (id) => {
         const updatedTodos = todos.filter(todo => todo.id !== id);
+        setTodos(updatedTodos);
+    };
+
+    const toggleComplete = (id) => {
+        const updatedTodos = todos.map((todo) => {
+            if (todo.id === id) {
+                return {
+                    ...todo,
+                    isCompleted: !todo.isCompleted
+                };
+            }
+            return todo;
+        });
         setTodos(updatedTodos);
     };
 
@@ -88,7 +99,8 @@ export const TodoProvider = (props) => {
         setSocialShow,
         addTodo,
         removeTodo,
-        updateTodo
+        updateTodo,
+        toggleComplete
     };
 
     return (
