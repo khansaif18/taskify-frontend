@@ -58,7 +58,7 @@
   letter-spacing: 1px;
 }
 
-.no-tasks h1 span{
+.no-tasks h1 span {
   color: #7257fa;
 }
 
@@ -382,9 +382,10 @@
   text-transform: uppercase;
 }
 
-.task-desc   {
+.task-desc {
   font-weight: 500;
   position: relative;
+  margin-bottom: 10px;
   font-size: 15px;
   opacity: 0.3;
 }
@@ -426,7 +427,8 @@
     font-size: 1.7rem;
   }
 
-  .task h3 {
+  .task .task-desc {
+    padding-bottom: 1.2rem;
     font-size: 0.8rem;
   }
 
@@ -437,6 +439,7 @@
   .task .update,
   .task .create {
     font-size: 11px;
+    opacity: 0.6;
   }
 }
 
@@ -449,6 +452,10 @@
   .task h1 {
     font-size: 1.2rem;
     width: 100%;
+  }
+
+  .task .task-desc {
+    padding-bottom: 12px;
   }
 
   .task .create {

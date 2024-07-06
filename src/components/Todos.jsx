@@ -19,7 +19,7 @@ export default function Todos() {
                 <h1>Welcome to Task<span>ify!</span></h1>
                 <h3> Can't See  Anything?🤷‍♂️</h3>
                 <h3>Click On The Button Below to <span>Get Started!</span></h3>
-                <PlusIcon />
+                <PlusIcon/>
             </div>
         )
     }

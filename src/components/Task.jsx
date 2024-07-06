@@ -25,9 +25,9 @@ export default function Task() {
 
                                 <h3 className='task-desc'>{todo.description}</h3>
 
-                                <p className='create'>{`Created at - ${todo.createDate}`}</p>
+                                <p className='create'>{`Created at ${todo.createDate}`}</p>
 
-                                {todo.updateDate && <p className='update'>{`Updated at - ${todo.updateDate}`}</p>}
+                                {todo.updateDate && <p className='update'>{`Updated at ${todo.updateDate}`}</p>}
 
                                 <div className="create-update-btn">
                                     <TooltipBtn
