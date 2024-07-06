@@ -15,17 +15,17 @@ export default function Todos() {
 
     if (todos.length < 1) {
         return (
-            <div className='no-tasks'>
+            <div className={todo.showForm || todo.socialShow ? 'blur no-tasks' : 'no-tasks'}>
                 <h1>Welcome to Task<span>ify!</span></h1>
                 <h3> Can't See  Anything?🤷‍♂️</h3>
                 <h3>Click On The Button Below to <span>Get Started!</span></h3>
-                <PlusIcon/>
+                <PlusIcon />
             </div>
         )
     }
 
     return (
-        <div className={todo.showForm || todo.editStatus ? 'blur todos' : 'todos'}>
+        <div className={todo.showForm || todo.editStatus || todo.socialShow ? 'blur todos' : 'todos'}>
             {
                 todos.map((task) => (
                     <Todo

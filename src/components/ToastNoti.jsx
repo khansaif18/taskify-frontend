@@ -12,7 +12,8 @@ export default function ToastNoti() {
                     style: {
                         border: '1px solid #cccccc27',
                         color: '#ccc',
-                        padding: '9px 14px',
+                        padding: '8px 12px',
+                        fontWeight: '600',
                         backgroundColor: '#7257fa'
                     },
                 }}

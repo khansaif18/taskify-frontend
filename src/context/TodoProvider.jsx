@@ -22,6 +22,7 @@ export const TodoProvider = (props) => {
     const [editStatus, setEditStaus] = useState(false);
     const [editId, setEditId] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const [socialShow, setSocialShow] = useState(false)
 
     // Save todos to local storage whenever the todos state changes
 
@@ -83,6 +84,8 @@ export const TodoProvider = (props) => {
         setEditId,
         showForm,
         setShowForm,
+        socialShow,
+        setSocialShow,
         addTodo,
         removeTodo,
         updateTodo

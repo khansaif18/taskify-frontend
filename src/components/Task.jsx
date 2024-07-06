@@ -13,7 +13,7 @@ export default function Task() {
     const navigate = useNavigate()
 
     return (
-        <div className={todoo.showForm || todoo.editStatus ? 'blur task-main' : 'task-main'}>
+        <div className={todoo.showForm || todoo.editStatus || todoo.socialShow ? 'blur task-main' : 'task-main'}>
             {
                 todos.map(todo => {
                     if (todo.id === taskId) {

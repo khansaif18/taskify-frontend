@@ -6,6 +6,7 @@ import Todos from './components/Todos'
 import { useTodo } from './context/TodoProvider'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Task from './components/Task'
+import Information from './components/Information'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         </Routes>
         {todo.showForm && <Input />}
         {todo.editStatus && <EditTodo />}
+        {todo.socialShow && <Information />}
       </BrowserRouter>
     </div>
   )

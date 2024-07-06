@@ -11,6 +11,7 @@ export default function PlusIcon() {
                 onClick={() => {
                     todo.setShowForm(prev => !prev)
                     todo.setEditStaus(false)
+                    todo.setSocialShow(false)
                 }}
             >
                 <span className="button__text">Add Task</span>
