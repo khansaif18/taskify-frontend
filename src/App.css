@@ -490,10 +490,7 @@
 .plus {
   position: fixed;
   z-index: 99;
-  bottom: 0;
-  padding: 1.5rem 1.5rem 2.5rem;
-  border-radius: 2rem;
-  backdrop-filter: blur(15px);
+  bottom: 3rem;
 }
 
 .button {
