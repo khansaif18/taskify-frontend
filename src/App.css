@@ -99,6 +99,8 @@
   font-size: 1.5rem;
   opacity: 0.7;
   letter-spacing: 1px;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 @media (max-width: 900px) {
@@ -130,6 +132,10 @@
   .no-tasks h3 {
     font-size: 0.8rem;
     font-weight: 600;
+  }
+  .comp-noComp{
+    margin-top: 5rem;
+    font-size: 1rem; 
   }
 }
 

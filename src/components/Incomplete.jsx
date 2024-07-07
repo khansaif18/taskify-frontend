@@ -38,7 +38,7 @@ export default function Incomplete() {
                         />
                     ))
                 ) : (
-                    <p className='comp-noComp'>Oops! No incomplete tasks 🤷‍♂️</p>
+                    <p className='comp-noComp'>Oops! No incomplete Tasks 🤷‍♂️</p>
                 )
             }
         </>

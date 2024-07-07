@@ -35,7 +35,7 @@ export default function Filter() {
                         checked={filter.incomplete}
                         onChange={() => setFilter({ ...filter, all: false, complete: false, incomplete: true })}
                     />
-                    <span>Incompleted</span>
+                    <span>Incomplete</span>
                 </label>
                 <span className="selection"></span>
             </div>
