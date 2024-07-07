@@ -32,6 +32,8 @@ export default function Information() {
                 </button>
             </a>
 
+            <span className='copy'>Made with ❤️ by <span>Saif</span></span>
+
         </div>
     )
 }

@@ -23,6 +23,12 @@ export const TodoProvider = (props) => {
     const [showForm, setShowForm] = useState(false);
     const [socialShow, setSocialShow] = useState(false);
 
+    const [filter, setFilter] = useState({
+        all: true,
+        complete: false,
+        incomplete: false
+    })
+
     useEffect(() => {
         localStorage.setItem('taskify', JSON.stringify(todos));
     }, [todos]);
@@ -35,7 +41,7 @@ export const TodoProvider = (props) => {
                 title: title,
                 description: description,
                 createDate: createDate,
-                isCompleted: false 
+                isCompleted: false
             },
             ...todos
         ]);
@@ -97,6 +103,8 @@ export const TodoProvider = (props) => {
         setShowForm,
         socialShow,
         setSocialShow,
+        filter,
+        setFilter,
         addTodo,
         removeTodo,
         updateTodo,
