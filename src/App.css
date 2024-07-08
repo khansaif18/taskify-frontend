@@ -94,7 +94,7 @@
   color: #7257fa;
 }
 
-.comp-noComp{
+.comp-noComp {
   color: #ccccccc7;
   font-size: 1.5rem;
   opacity: 0.7;
@@ -133,9 +133,10 @@
     font-size: 0.8rem;
     font-weight: 600;
   }
-  .comp-noComp{
+
+  .comp-noComp {
     margin-top: 5rem;
-    font-size: 1rem; 
+    font-size: 1rem;
   }
 }
 
@@ -204,7 +205,7 @@
   text-align: center;
   color: #9c9b9e;
   position: fixed;
-  top: 25%;
+  top: 20%;
   z-index: 99;
 }
 
@@ -217,31 +218,24 @@
   justify-content: center;
 }
 
-.form input {
-  width: 80%;
-  border: none;
-  outline: none;
-  letter-spacing: 1px;
-  padding: 9px 2rem;
-  background-color: #544f4f61;
-  color: #ccccccc5;
-  border-radius: 2rem;
-}
-
-.form input:focus {
-  color: #fff;
-}
-
+.form input,
 .form textarea {
   width: 80%;
-  border: none;
+  border: 1px solid #75737361;
   outline: none;
   letter-spacing: 1px;
-  padding: 9px 2rem;
+  padding: 9px 1.5rem;
   background-color: #544f4f61;
   color: #ccccccc5;
-  border-radius: 2rem;
+  border-radius: 5px;
 }
+
+.form input:focus,
+.form textarea:focus {
+  color: #fff;
+  border: 1px solid #ffffffd8;
+}
+
 
 .form button {
   width: 150px;
@@ -317,6 +311,7 @@
   padding: 0;
   font-size: 1.3rem;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .card .card__title::first-letter {
@@ -329,7 +324,7 @@
   color: #ccccccb8;
   font-weight: 400;
   margin-top: -5px;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   overflow: hidden;
 }
 
@@ -506,7 +501,7 @@
 
   .task .update {
     font-size: 10px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 }
 

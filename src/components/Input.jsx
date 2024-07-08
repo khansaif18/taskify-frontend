@@ -37,7 +37,7 @@ export default function Input() {
                 />
  
                 <textarea
-                    rows='2'
+                    rows='5'
                     type='text'
                     placeholder='Add a Description (Optional)...'
                     value={todo.description}

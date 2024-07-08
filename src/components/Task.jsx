@@ -30,7 +30,7 @@ export default function Task() {
                                     {todo.title}
                                 </h1>
 
-                                <h3 className='task-desc' style={todo.updateDate ? { marginBottom: '-2px' } : { marginBottom: '1.5rem' }}>
+                                <h3 className='task-desc' style={todo.updateDate ? { marginBottom: '0' } : { marginBottom: '1.5rem' }}>
                                     {todo.description}
                                 </h3>
 

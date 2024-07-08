@@ -34,7 +34,7 @@ export default function EditTodo() {
                 />
 
                 <textarea
-                    rows='2'
+                    rows='5'
                     type='text'
                     placeholder='Edit the Description...'
                     value={todo.editedDescription}
