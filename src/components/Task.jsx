@@ -26,10 +26,20 @@ export default function Task() {
                             <div key={todo.id} className='task'>
                                 <BackButton />
                                 <hr />
-                                <h1 className={todo.isCompleted ? ' line' : ''}>{todo.title}</h1>
-                                <h3 className='task-desc'>{todo.description}</h3>
-                                <p className='create'>{`Created at ${todo.createDate}`}</p>
+                                <h1 className={todo.isCompleted ? ' line' : ''}>
+                                    {todo.title}
+                                </h1>
+
+                                <h3 className='task-desc' style={todo.updateDate ? { marginBottom: '-2px' } : { marginBottom: '1.5rem' }}>
+                                    {todo.description}
+                                </h3>
+
+                                <p className='create'>
+                                    {`Created at ${todo.createDate}`}
+                                </p>
+
                                 {todo.updateDate && <p className='update'>{`Updated at ${todo.updateDate}`}</p>}
+
                                 <div className="create-update-btn">
                                     <Checkbox
                                         isChecked={todo.isCompleted}

@@ -2,8 +2,6 @@ import { useTodo } from '../context/TodoProvider'
 import Todo from './Todo'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import PlusIcon from './PlusIcon'
-import Filter from './Filter'
 
 export default function AllTasks() {
     const todo = useTodo()
@@ -19,7 +17,7 @@ export default function AllTasks() {
                         key={task.id}
                         title={task.title.length > 25 ? task.title.slice(0, 25) + '...' : task.title}
                         date={task.createDate}
-                        description={task.description.length > 25 ? task.description.slice(0, 50) + '...' : task.description}
+                        description={task.description.length > 25 ? task.description.slice(0, 45) + '...' : task.description}
                         cardClick={() => navigate(`/task/${task.id}`)}
                         isComp={task.isCompleted}
                         handleRemove={(e) => {

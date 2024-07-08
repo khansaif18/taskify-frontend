@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTodo } from '../context/TodoProvider'
 import Todo from './Todo'
-import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import PlusIcon from './PlusIcon'
 import Filter from './Filter'
