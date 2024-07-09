@@ -20,15 +20,16 @@ export default function Search() {
 
                 <input
                     id="query"
-                    type="search"
+                    type="text"
                     className="input"
                     placeholder='Enter Title to Search Task'
                     autoFocus='true'
+                    autoComplete='off'
                     value={searchValue}
                     onChange={e => setSearchValue(e.target.value)}
                 />
 
-                {searchValue && <span className='clear-search' onClick={()=> setSearchValue('')}>✖</span>}
+                {searchValue && <span className='clear-search' onClick={() => setSearchValue('')}>✖</span>}
 
             </div>
         </div>
