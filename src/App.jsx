@@ -7,6 +7,7 @@ import { useTodo } from './context/TodoProvider'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Task from './components/Task'
 import Information from './components/Information'
+import Search from './components/Search'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={<Todos />} />
           <Route path='/task/:taskId' element={<Task />} />
         </Routes>
+        {/* <Search/> */}
         {todo.showForm && <Input />}
         {todo.editStatus && <EditTodo />}
         {todo.socialShow && <Information />}

@@ -23,6 +23,9 @@ export const TodoProvider = (props) => {
     const [showForm, setShowForm] = useState(false);
     const [socialShow, setSocialShow] = useState(false);
 
+    const [searchValue, setSearchValue] = useState('')
+    const [searchShow, setSearchShow] = useState(false);
+
     const [filter, setFilter] = useState({
         all: true,
         complete: false,
@@ -105,6 +108,10 @@ export const TodoProvider = (props) => {
         setSocialShow,
         filter,
         setFilter,
+        searchValue,
+        setSearchValue,
+        searchShow,
+        setSearchShow,
         addTodo,
         removeTodo,
         updateTodo,

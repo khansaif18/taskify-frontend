@@ -7,6 +7,7 @@ import Filter from './Filter'
 import AllTasks from './AllTasks'
 import Incomplete from './Incomplete'
 import Completed from './Completed'
+import Search from './Search'
 
 
 export default function Todos() {
@@ -31,8 +32,9 @@ export default function Todos() {
     return (
         <div className={todo.showForm || todo.editStatus || todo.socialShow ? 'blur todos-main' : 'todos-main'}>
             <Filter />
+            {todo.searchShow && <Search />}
             <div className='todos'>
-                {filter.all &&  <AllTasks />}
+                {filter.all && <AllTasks />}
                 {filter.complete && <Completed />}
                 {filter.incomplete && <Incomplete />}
                 <PlusIcon />
