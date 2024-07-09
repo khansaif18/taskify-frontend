@@ -22,8 +22,8 @@ export default function Search() {
                     id="query"
                     type="text"
                     className="input"
-                    placeholder='Enter Title to Search Task'
-                    autoFocus='true'
+                    placeholder='Search Task'
+                    // autoFocus='off'
                     autoComplete='off'
                     value={searchValue}
                     onChange={e => setSearchValue(e.target.value)}

@@ -57,18 +57,18 @@
 
 .header .info,
 .header .search {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #ffff;
   cursor: pointer;
   padding: 3px 5px;
-  opacity: 0.5;
+  opacity: 0.2;
   transition: all 0.2s ease-in;
 }
 
 .header .info:hover,
 .header .search:hover {
   opacity: 1;
-  color: #4a00e0;
+  color: #fff !important;
 }
 
 /* No Tasks */
@@ -154,6 +154,11 @@
     margin-top: 5rem;
     font-size: 1rem;
   }
+
+  .header .info,
+  .header .search {
+    font-size: 14px;
+  }
 }
 
 /* Todos */
@@ -221,7 +226,7 @@
   text-align: center;
   color: #9c9b9e;
   position: fixed;
-  top: 20%;
+  top: 15%;
   z-index: 99;
 }
 
@@ -1387,7 +1392,7 @@ svg:hover .tooltip {
 }
 
 .input:focus {
-  box-shadow: 0 0 0 2px #4b00e0a6;
+  box-shadow: 0 0 0 2px #ffffff4e;
 }
 
 .search-icon {

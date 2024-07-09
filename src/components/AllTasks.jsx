@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTodo } from '../context/TodoProvider';
 import Todo from './Todo';
 import toast from 'react-hot-toast';
@@ -11,7 +11,7 @@ export default function AllTasks() {
 
     const { searchValue } = useTodo();
 
-    const filteredTasks = todos.filter(task => task.title.toLowerCase().includes(searchValue.toLowerCase()));
+    const filteredTasks = todos.filter(task => task.title.toLowerCase().includes(searchValue.toLowerCase()) || task.description.toLowerCase().includes(searchValue.toLowerCase()));
 
     if (filteredTasks.length < 1) return (
         <div>
