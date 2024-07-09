@@ -22,6 +22,7 @@ export default function Input() {
             toast.success('New Task Created!')
         }
     }
+    
 
     return (
         <div className='main-form'>

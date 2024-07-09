@@ -22,7 +22,6 @@ function App() {
           <Route path='/' element={<Todos />} />
           <Route path='/task/:taskId' element={<Task />} />
         </Routes>
-        {/* <Search/> */}
         {todo.showForm && <Input />}
         {todo.editStatus && <EditTodo />}
         {todo.socialShow && <Information />}

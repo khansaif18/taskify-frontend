@@ -28,7 +28,7 @@ export default function Header() {
             <div className="head">
                 <span className='info' onClick={handleInfo}><FontAwesomeIcon icon={faQuestionCircle} /></span>
                 <h1>Task<span>ify</span></h1>
-                <span style={path && todos.length > 0 ? { opacity: '0.3' } : { opacity: '0' }} className='search' onClick={handleSearch}>{searchShow ? <span>✖</span> : <FontAwesomeIcon icon={faSearch} />}</span>
+                <span style={path && todos.length > 0 ? { visibility: 'visible' } : { visibility: 'hidden' }} className='search' onClick={handleSearch}>{searchShow ? <span>✖</span> : <FontAwesomeIcon icon={faSearch} />}</span>
             </div>
             <p>Manage Your <span>Tasks</span> and <span>Notes</span> at One Place</p>
         </div >

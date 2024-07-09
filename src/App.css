@@ -226,7 +226,7 @@
   text-align: center;
   color: #9c9b9e;
   position: fixed;
-  top: 15%;
+  top: 22%;
   z-index: 99;
 }
 
@@ -301,7 +301,7 @@
 @media (max-width: 600px) {
   .main-form {
     width: 70vw;
-    top: 20%;
+    top: 15%;
   }
 }
 
