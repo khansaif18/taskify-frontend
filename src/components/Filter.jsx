@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { useTodo } from '../context/TodoProvider'
+import { useTask } from '../context/TaskProvider'
 
 export default function Filter() {
 
-    const { filter, setFilter, setSearchShow } = useTodo()
+    const { filter, setFilter, } = useTask()
 
     return (
-        <div className="filter">
-            <div className="radio-input">
+        <div className="filter my-border rounded-3xl">
+            <div className="radio-input ">
                 <label>
                     <input
                         id="value-1"
@@ -15,10 +15,9 @@ export default function Filter() {
                         checked={filter.all}
                         onChange={() => {
                             setFilter({ ...filter, all: true, complete: false, incomplete: false })
-                            setSearchShow(false)
                         }}
                     />
-                    <span>All Tasks</span>
+                    <span className='font-bold'>All Tasks</span>
                 </label>
 
                 <label>
@@ -28,10 +27,9 @@ export default function Filter() {
                         checked={filter.complete}
                         onChange={() => {
                             setFilter({ ...filter, all: false, complete: true, incomplete: false })
-                            setSearchShow(false)
                         }}
                     />
-                    <span>Completed</span>
+                    <span className='font-bold'>Completed</span>
                 </label>
 
                 <label>
@@ -41,10 +39,9 @@ export default function Filter() {
                         checked={filter.incomplete}
                         onChange={() => {
                             setFilter({ ...filter, all: false, complete: false, incomplete: true })
-                            setSearchShow(false)
                         }}
                     />
-                    <span>Incomplete</span>
+                    <span className='font-bold'>Incomplete</span>
                 </label>
                 <span className="selection"></span>
             </div>

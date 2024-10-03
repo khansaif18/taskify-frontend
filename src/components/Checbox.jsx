@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 export default function Checkbox({ isChecked, handleChange }) {
     return (
         <div className="checkbox-wrapper-12">
