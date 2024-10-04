@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Delete({ handleDelete, handleCancel, confirmName }) {
+export default function Delete({ handleDelete, handleCancel}) {
 
     return (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center mt-[-5rem]'>

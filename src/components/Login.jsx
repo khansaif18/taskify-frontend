@@ -3,20 +3,23 @@ import React, { useState } from 'react'
 import { googleSignIn } from '../service/signIn'
 import { useTask } from '../context/TaskProvider'
 import MiniLoader from './MiniLoader'
+import toast from 'react-hot-toast'
 
 export default function Login({ handleToggle }) {
 
     const [loading, setLoading] = useState(false)
-    const { setStatus } = useTask()
+    const { setState } = useTask()
 
     const handleLogin = () => {
         setLoading(true)
         try {
             googleSignIn().then(() => {
-                setStatus(prev => !prev)
+                toast.success('Logged in')
+                setState(prev => !prev)
             })
         } catch (error) {
             console.log('error : ', error);
+            toast.error('Could not Login, Try Again')
         } finally {
             setLoading(false)
         }

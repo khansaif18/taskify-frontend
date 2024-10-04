@@ -37,11 +37,11 @@ export default function Tasks() {
         })
         : []
 
-    // if (loading) return <Loader />
+    if (loading) return <Loader />
 
     if (!user) return (
         <div className='min-h-[85vh] w-full flex flex-col items-center pt-[100px] opacity-50'>
-            {loading && <Loader />}
+            {/* {loading && <Loader />} */}
             <h2 className='text-3xl tracking-wide font-bold mb-1'>Welcome to <span className='text-violet-700'>!Taskify</span> </h2>
             <p className='opacity-50 mb-5'>Manage all your notes at one place</p>
             <Login />
@@ -49,9 +49,9 @@ export default function Tasks() {
     )
 
     return (
-        <div className=' min-h-[85vh] w-full flex items-start justify-center pb-20'>
+        <div className=' min-h-[85vh] w-full  flex items-start justify-center pb-20'>
             <div className='flex w-full items-center justify-center gap-5 flex-wrap'>
-                {loading && <Loader />}
+                {/* {loading && <Loader />} */}
                 {filteredTasks.length > 0 ? (
                     filteredTasks.map((task, index) => (
                         <TaskCard
@@ -65,6 +65,7 @@ export default function Tasks() {
                                 navigate(`/${task._id}`)
                             }}
                         />
+
                     ))
                 ) : (
                     <div className=' tracking-wide font-semibold mt-[5rem] flex items-center flex-col'>

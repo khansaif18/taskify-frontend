@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { ArrowLeft, Check, Pencil, Trash } from 'lucide-react'
+import { ArrowLeft, Check, Pencil, Share2, Trash } from 'lucide-react'
 import { useTask } from '../context/TaskProvider'
 import { useNavigate, useParams } from 'react-router-dom'
 import Checkbox from '../components/Checbox'
 import Delete from '../components/Delete'
 import Loader from '../components/Loader'
-import MiniLoader from '../components/MiniLoader'
+import toast from 'react-hot-toast'
 
 export default function Task() {
     const params = useParams()
@@ -56,13 +56,38 @@ export default function Task() {
             <div className='relative my-bg w-[550px] max-w-[100%] px-5 flex flex-col py-6 pt-0 overflow-hidden'>
                 {/* Top section */}
                 <div className='flex items-center bb justify-between py-2 px-0 gap-2'>
+
                     <span onClick={() => navigate('/')} className='icon bg-[#453c3c6a]'>
                         <ArrowLeft size={18} />
                     </span>
-                    <span className='icon bg-[#453c3c6a]'
-                        onClick={() => setShowDelete(true)}>
-                        <Trash size={18} />
-                    </span>
+
+                    <div className='flex items-center gap-2'>
+
+                        {/* <span className='icon bg-[#453c3c6a]'
+                            onClick={async () => {
+                                if (navigator.share) {
+                                    try {
+                                        await navigator.share({
+                                            title: activeTask.title,
+                                            url: window.location.href,
+                                        });
+                                        toast.success('Shared successfully!');
+                                    } catch (error) {
+                                        toast.error('Error sharing:')
+                                    }
+                                } else {
+                                    toast.error('Share is not supported in your browser.');
+                                }
+                            }}>
+                            <Share2 size={18} />
+                        </span> */}
+
+                        <span className='icon bg-[#453c3c6a]'
+                            onClick={() => setShowDelete(true)}>
+                            <Trash size={18} />
+
+                        </span>
+                    </div>
                 </div>
 
 
@@ -109,7 +134,10 @@ export default function Task() {
                         <span className='check-icon '>
                             <Checkbox
                                 isChecked={activeTask.isCompleted}
-                                handleChange={() => toggleComplete(activeTask._id)}
+                                handleChange={() => {
+                                    toggleComplete(activeTask._id).then(() => !activeTask.isCompleted ? toast('Marked Completed!', { icon: '🫡', }) : toast('Marked Incomplete', { icon: '🙂', }))
+
+                                }}
                             />
                         </span>
                         {
@@ -118,6 +146,8 @@ export default function Task() {
                                     setIsEditing(prev => !prev)
                                     if (newTitle !== activeTask.title || newDescription !== activeTask.description) {
                                         updateTask(activeTask._id, newTitle, newDescription)
+                                            .then(() => toast.success('Updated Successfully'))
+                                            .catch(() => toast.error('Something went wrong'))
                                     } else setIsEditing(false)
                                 }}
                                     className='check icon bg-violet-500'>
@@ -139,7 +169,9 @@ export default function Task() {
                                 .then(() => {
                                     navigate('/')
                                     setState(prev => !prev)
+                                    toast.success('Deleted Successfully')
                                 })
+                                .catch(() => toast.error('Something went wrong'))
                         }}
                     />}
             </div>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTask } from '../context/TaskProvider'
 import { signout } from '../service/signIn'
+import toast from 'react-hot-toast'
 
 export default function Navbar({ }) {
     const location = useLocation()
@@ -69,9 +70,10 @@ export default function Navbar({ }) {
                                                 signout().then(() => {
                                                     setState(prev => !prev)
                                                     setShowProfile(false)
+                                                    toast.success('Logged out')
                                                     setLoading(false)
                                                     nav('/')
-                                                })
+                                                }).catch(() => toast.error('Something went wrong, Try again'))
                                             }} >
                                             Logout <LogOut size={14} />
                                         </button>

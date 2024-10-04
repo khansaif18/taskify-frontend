@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../service/firebase'
+import toast from 'react-hot-toast'
 
 const TaskContext = createContext()
 
@@ -25,15 +26,20 @@ export default function TaskProvider({ children }) {
 
     // Auth
     useEffect(() => {
+        setLoading(true)
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
+                setLoading(false)
             } else {
                 setUser(null);
+                setLoading(false)
             }
         });
         return () => unsubscribe();
     }, [state]);
+
+
 
 
     // Backend
@@ -41,7 +47,13 @@ export default function TaskProvider({ children }) {
         try {
             if (user) {
                 setLoading(true);
-                const res = await fetch(`${API}/user-tasks/${user.uid}`);
+                const res = await fetch(`${API}/user-tasks/${user.uid}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${user.uid}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
 
                 if (!res.ok) throw new Error('Failed to fetch tasks');
 
@@ -62,16 +74,16 @@ export default function TaskProvider({ children }) {
     };
 
     useEffect(() => {
-        if (user) {  
+        if (user) {
             fetchUserTasks();
         }
-    }, [user, state]);  
+    }, [user, state]);
 
-    
+
     const newTask = async (title, description, createdBy) => {
         setLoading(true)
         try {
-            await axios.post(`${API}`, { title, description, createdBy })
+            await axios.post(`${API}`, { title, description, createdBy, uid: user.uid })
             fetchUserTasks()
         } catch (error) {
             console.log('error new task : ', error);
@@ -83,7 +95,7 @@ export default function TaskProvider({ children }) {
     const updateTask = async (id, title, description) => {
         setLoading(true)
         try {
-            await axios.put(`${API}/update/${id}`, { title, description })
+            await axios.put(`${API}/update/${id}`, { title, description, uid: user.uid })
             await fetchUserTasks()
         } catch (error) {
             console.log('error update task : ', error);
@@ -95,7 +107,7 @@ export default function TaskProvider({ children }) {
     const toggleComplete = async (id) => {
         setLoading(true)
         try {
-            await axios.put(`${API}/toggle-complete/${id}`)
+            await axios.put(`${API}/toggle-complete/${id}`, { uid: user.uid })
             await fetchUserTasks()
         } catch (error) {
             console.log('error toggle task : ', error);
@@ -107,7 +119,12 @@ export default function TaskProvider({ children }) {
     const deleteTask = async (id) => {
         setLoading(true)
         try {
-            await axios.delete(`${API}/delete/${id}`)
+            await axios.delete(`${API}/delete/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${user.uid}`,
+                    'Content-Type': 'application/json',
+                }
+            })
             await fetchUserTasks()
         } catch (error) {
             console.log('error delete task : ', error);
