@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { ArrowLeft, Check, Pencil, Share2, Trash } from 'lucide-react'
+import { ArrowLeft, Check, Pencil, RefreshCcw, Share2, Trash, X } from 'lucide-react'
 import { useTask } from '../context/TaskProvider'
 import { useNavigate, useParams } from 'react-router-dom'
 import Checkbox from '../components/Checbox'
 import Delete from '../components/Delete'
 import Loader from '../components/Loader'
 import toast from 'react-hot-toast'
+import axios from 'axios'
 
 export default function Task() {
     const params = useParams()
     const navigate = useNavigate()
-    const { tasks, loading, updateTask, toggleComplete, deleteTask, setState } = useTask()
+    const { user, tasks, loading, setLoading, updateTask, toggleComplete, deleteTask, setState } = useTask()
     const task = tasks ? tasks.filter(item => item._id === params.taskId) : []
     const activeTask = task[0]
 
@@ -47,11 +48,19 @@ export default function Task() {
         autoResize(descriptionTextareaRef)
     }
 
+    const formatTextWithNewLines = (inputText) => {
+        return inputText.split("\n").map((line, index) => (
+            <span key={index}>
+                {line}
+                <br />
+            </span>
+        ));
+    };
 
-    // if (loading) return <Loader />
+    if (loading) return <Loader />
 
     if (activeTask) return (
-        <div className=' w-full min-h-[85vh] flex justify-center pb-10'>
+        <div className=' w-full min-h-[85vh] overflow-scroll flex justify-center pb-10'>
             {loading && <Loader />}
             <div className='relative my-bg w-[550px] max-w-[100%] px-5 flex flex-col py-6 pt-0 overflow-hidden'>
                 {/* Top section */}
@@ -61,33 +70,11 @@ export default function Task() {
                         <ArrowLeft size={18} />
                     </span>
 
-                    <div className='flex items-center gap-2'>
+                    <span className={`icon bg-[#453c3c6a] `}
+                        onClick={() => setShowDelete(true)}>
+                        <Trash size={18} />
+                    </span>
 
-                        {/* <span className='icon bg-[#453c3c6a]'
-                            onClick={async () => {
-                                if (navigator.share) {
-                                    try {
-                                        await navigator.share({
-                                            title: activeTask.title,
-                                            url: window.location.href,
-                                        });
-                                        toast.success('Shared successfully!');
-                                    } catch (error) {
-                                        toast.error('Error sharing:')
-                                    }
-                                } else {
-                                    toast.error('Share is not supported in your browser.');
-                                }
-                            }}>
-                            <Share2 size={18} />
-                        </span> */}
-
-                        <span className='icon bg-[#453c3c6a]'
-                            onClick={() => setShowDelete(true)}>
-                            <Trash size={18} />
-
-                        </span>
-                    </div>
                 </div>
 
 
@@ -101,6 +88,7 @@ export default function Task() {
                         onChange={handleTitleChange}
                         rows={2}
                         style={{ overflow: 'hidden' }}
+                        spellCheck="false"
                     />
                 ) : (
                     <h1 className={`pt-2 mb-2 bg-transparent capitalize text-violet-600 font-bold tracking-wide text-2xl outline-none w-full min-w-0 overflow-hidden ${activeTask.isCompleted ? 'line' : ''}`}>{activeTask.title}</h1>
@@ -120,7 +108,7 @@ export default function Task() {
                         spellCheck="false"
                     />
                 ) : (
-                    <p className='opacity-60 text-md'>{activeTask?.description}</p>
+                    <p className='opacity-60 text-md'>{formatTextWithNewLines(activeTask?.description)}</p>
                 )}
 
                 {/* Bottom Section */}
@@ -177,4 +165,6 @@ export default function Task() {
             </div>
         </div>
     )
+
 }
+

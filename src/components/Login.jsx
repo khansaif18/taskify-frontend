@@ -16,11 +16,11 @@ export default function Login({ handleToggle }) {
             googleSignIn().then(() => {
                 toast.success('Logged in')
                 setState(prev => !prev)
+                setLoading(false)
             })
         } catch (error) {
             console.log('error : ', error);
             toast.error('Could not Login, Try Again')
-        } finally {
             setLoading(false)
         }
     }

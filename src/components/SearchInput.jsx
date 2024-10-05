@@ -9,7 +9,7 @@ export default function SearchInput() {
         <form>
             <input
                 className='bg-transparent my-border py-[6px] px-5 w-[320px] outline-none rounded-3xl placeholder:opacity-30 placeholder:tracking-wide'
-                placeholder='Search Task'
+                placeholder='Search Here..'
                 type="text"
                 value={searchValue}
                 onChange={e => setSearchValue(e.target.value)}

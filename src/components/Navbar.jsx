@@ -13,7 +13,9 @@ export default function Navbar({ }) {
     const { tasks, user, setState, showSearch, setShowSearch, showFilter, setShowFilter, filter, setFilter, setSearchValue, setLoading } = useTask()
 
     useEffect(() => {
-        if (user) setDpUrl(user.photoURL)
+        setTimeout(() => {
+            if (user) setDpUrl(user.photoURL)
+        }, 2000);
     }, [])
 
 
@@ -31,6 +33,7 @@ export default function Navbar({ }) {
                 <div className='flex gap-2'>
                     {!user ?
                         <span className={`p-2 px-4 rounded-md bg-[#453c3c6a] hover:bg-violet-500 duration-200 cursor-pointer ${location.pathname === '/' ? '' : ' invisible '}`}
+                            onClick={() => toast('Ye show ke liye lga rkha hai!', { icon: '🥱', })}
                         ><User size={18} /></span> :
                         <>
                             <span style={showSearch ? { backgroundColor: '#5b21b6' } : { background: 'none' }}
@@ -39,16 +42,19 @@ export default function Navbar({ }) {
                                     setSearchValue('')
                                     setShowSearch(prev => !prev)
                                 }} className={` ${location.pathname === '/' ? '' : 'invisible'}
-                             p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer`}>
+                             p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer 
+                             ${tasks && tasks.length < 1 ? 'invisible ' : 'visible'}`}>
                                 <Search size={20} />
                             </span>
+
                             <span style={showFilter ? { backgroundColor: '#5b21b6' } : { background: 'none' }} onClick={() => {
                                 setShowFilter(!showFilter)
                                 setFilter({ ...filter, all: true, complete: false, incomplete: false })
                             }
                             }
                                 className={` ${location.pathname === '/' ? '' : 'invisible'}
-                            p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer`}> <SlidersHorizontal size={20} /></span>
+                                ${tasks && tasks.length < 1 ? ' invisible ' : ' visible '}
+                             p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer`}> <SlidersHorizontal size={20} /></span>
 
                             <span className='p-2 rounded-md  hover:bg-violet-500 bg-violet-800  duration-200 cursor-pointer relative'
                                 onClick={() => setShowProfile(prev => !prev)}>

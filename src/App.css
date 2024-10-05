@@ -16,8 +16,6 @@
     padding-top: 65px;
 }
 
-
-
 .nav-border {
     border-bottom: 1px solid #3635356b;
 }
@@ -36,7 +34,7 @@
 }
 
 .chotu {
-    transform: scale(0.7);
+    transform: scale(0.5);
 }
 
 .line {
@@ -64,6 +62,24 @@
     transition: 0.2s ease-in;
 }
 
+/* Hide scrollbar in Chrome, Safari, and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* For Firefox */
+html {
+    scrollbar-width: none;
+    /* hides scrollbar */
+}
+
+/* General styling to make sure content is scrollable */
+body {
+    overflow: scroll;
+    /* Ensure scrolling is possible */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
 
 
 /* Loader */
