@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function TaskCard({ count, title, description, createdAt, complete, handleCardClick }) {
     count = count < 10 ? '0' + count : count
-    title = title.length > 25 ? title.slice(0, 25) + '..' : title
+    title = title.length > 25 ? title.slice(0, 23) + '..' : title
     description = description.length > 40 ? description.slice(0, 33) + '..' : description
     return (
         <div onClick={handleCardClick}
