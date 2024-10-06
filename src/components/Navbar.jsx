@@ -9,14 +9,14 @@ export default function Navbar({ }) {
     const location = useLocation()
     const nav = useNavigate()
     const [dpUrl, setDpUrl] = useState('')
-    const [showProfile, setShowProfile] = useState(false)
+    // const [showProfile, setShowProfile] = useState(false)
     const { tasks, user, setState, showSearch, setShowSearch, showFilter, setShowFilter, filter, setFilter, setSearchValue, setLoading } = useTask()
 
-    useEffect(() => {
-        setTimeout(() => {
-            if (user) setDpUrl(user.photoURL)
-        }, 2000);
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         if (user) setDpUrl(user.photoURL)
+    //     }, 2000);
+    // }, [])
 
 
     return (
@@ -56,21 +56,21 @@ export default function Navbar({ }) {
                                 ${tasks && tasks.length < 1 ? ' invisible ' : ' visible '}
                              p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer`}> <SlidersHorizontal size={20} /></span>
 
-                            <span className='p-2 rounded-md  hover:bg-violet-500 bg-violet-800  duration-200 cursor-pointer relative'
+                            <span className='p-2 rounded-md papa bg-violet-800  duration-200 cursor-pointer relative'
                                 onClick={() => setShowProfile(prev => !prev)}>
                                 <img
                                     className='h-[20px] w-[20px] rounded-full'
-                                    src={dpUrl}
+                                    src={user.photoURL}
                                     alt={user.displayName.slice(0, 1)}
-                                    onError={() => setDpUrl('https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?w=740')}
+                                    // onError={() => setDpUrl('https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?w=740')}
                                 />
 
-                                {
-                                    showProfile &&
-                                    <div className=' px-2 py-3 rounded-lg absolute right-0 mt-4 flex items-center justify-start gap-2 flex-col bg-violet-800'>
-                                        <p className='cursor-default bg-violet-600 flex w-[110px] px-3 py-[6px] rounded-lg  tracking-wide text-white hover:text-white duration-200'>{user.displayName.slice(0, 10)}</p>
+                                {/* {
+                                    showProfile && */}
+                                    <div className=' px-2 beta py-3 rounded-lg absolute right-0 mt-[8px] flex items-center justify-start gap-2 flex-col bg-violet-800'>
+                                        <p className='cursor-default bg-violet-600 flex w-[110px] px-3 py-[6px] rounded-lg  tracking-wide text-white hover:text-white '>{user.displayName.slice(0, 10)}</p>
 
-                                        <button className='px-3 py-[6px]  w-[110px] flex items-center justify-start gap-1 rounded-lg hover:bg-violet-600 tracking-wide text-white/60 hover:text-white duration-200'
+                                        <button className='px-3 py-[6px]  w-[110px] flex items-center justify-start gap-1 rounded-lg hover:bg-violet-600 tracking-wide text-white/60 hover:text-white '
                                             onClick={() => {
                                                 setLoading(true)
                                                 signout().then(() => {
@@ -84,7 +84,7 @@ export default function Navbar({ }) {
                                             Logout <LogOut size={14} />
                                         </button>
                                     </div>
-                                }
+                                {/* // } */}
 
                             </span>
                         </>

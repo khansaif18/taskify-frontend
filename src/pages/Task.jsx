@@ -57,7 +57,7 @@ export default function Task() {
         ));
     };
 
-    if (loading) return <Loader />
+    // if (loading) return <Loader />
 
     if (activeTask) return (
         <div className=' w-full min-h-[85vh] overflow-scroll flex justify-center pb-10'>
@@ -82,11 +82,11 @@ export default function Task() {
                 {isEditing ? (
                     <textarea
                         ref={titleTextareaRef}
-                        className={`pt-2 mb-2 text-violet-600 bg-transparent font-bold tracking-wide text-xl outline-none w-full  min-w-0 resize-none `}
+                        className={`pt-2 mb-2 text-violet-600 bg-transparent font-bold tracking-wide text-2xl outline-none w-full  min-w-0 resize-none `}
                         disabled={!isEditing}
                         value={newTitle}
                         onChange={handleTitleChange}
-                        rows={2}
+                        rows={1}
                         style={{ overflow: 'hidden' }}
                         spellCheck="false"
                     />
@@ -142,7 +142,9 @@ export default function Task() {
                                     <Check size={18} />
                                 </span>
                             ) : (
-                                <span onClick={() => setIsEditing(prev => !prev)} className='pencil icon bg-[#453c3c6a]'>
+                                <span
+                                    onClick={() => setIsEditing(prev => !prev)}
+                                    className={`pencil icon bg-[#453c3c6a] ${activeTask.isCompleted ? ' hidden ' : ' '}`}>
                                     <Pencil size={18} />
                                 </span>
                             )
@@ -163,7 +165,7 @@ export default function Task() {
                         }}
                     />}
             </div>
-        </div>
+        </div >
     )
 
 }
