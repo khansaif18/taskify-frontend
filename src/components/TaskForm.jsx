@@ -5,22 +5,30 @@ import toast from 'react-hot-toast'
 
 export default function TaskForm({ handleClose }) {
 
-    const { user, newTask, loading, setState } = useTask()
+    const { tasks, user, newTask, setState } = useTask()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (title && user) {
-            const taskDescription = description.trim() === '' ? 'No Description Given 🤷‍♂️' : description
-            newTask(title, taskDescription, user.uid)
-                .then(() => {
-                    handleClose()
-                    setState(prev => !prev)
-                    toast.success('Created Successfully')
-                }).catch(() => toast.error('Something went wrong, Try again'))
+        if (tasks && tasks.length < 25) {
+            if (title && user) {
+                const taskDescription = description.trim() === '' ? 'No Description Given 🤷‍♂️' : description
+                newTask(title, taskDescription, user.uid)
+                    .then(() => {
+                        handleClose()
+                        setState(prev => !prev)
+                        toast.success('Created Successfully')
+                    }).catch(() => toast.error('Something went wrong, Try again'))
+            }
+            else toast.error('Fill the requied fields')
+        } else {
+            toast(() => (
+                <span>
+                    You can not have more then <b>25 Notes</b>  at a time,<b>  delete some previous notes</b>
+                </span>
+            ), { duration: 5000 });
         }
-        else toast.error('Fill the requied fields')
     }
 
 

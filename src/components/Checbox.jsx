@@ -6,6 +6,7 @@ export default function Checkbox({ isChecked, handleChange }) {
             <div className="cbx">
                 <input
                     id="cbx-12"
+                    title='Toggle Complete Status'
                     type="checkbox"
                     checked={isChecked}
                     onChange={handleChange}

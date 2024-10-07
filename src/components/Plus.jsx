@@ -4,7 +4,7 @@ export default function Plus({ handlePlus, fixed, hide }) {
     return (
         <div className={`${fixed ? 'fixed bottom-7' : ''} overflow-hidden ${hide ? 'hidden' : ''}`}>
             <button onClick={handlePlus}
-                className="group cursor-pointer outline-none hover:rotate-90 duration-300 rounded-full backdrop-blur-lg">
+                className="group cursor-pointer outline-none hover:rotate-90 duration-300 rounded-full backdrop-blur-lg z-50">
                 <svg
                     className="stroke-violet-500 fill-none group-hover:fill-violet-800 group-active:stroke-violet-200 group-active:fill-violet-600 group-active:duration-0 duration-300"
                     viewBox="0 0 24 24"

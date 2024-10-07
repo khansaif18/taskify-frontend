@@ -11,7 +11,7 @@ import axios from 'axios'
 export default function Task() {
     const params = useParams()
     const navigate = useNavigate()
-    const { user, tasks, loading, setLoading, updateTask, toggleComplete, deleteTask, setState } = useTask()
+    const { user, tasks, loading, updateTask, toggleComplete, deleteTask, setState } = useTask()
     const task = tasks ? tasks.filter(item => item._id === params.taskId) : []
     const activeTask = task[0]
 
@@ -70,7 +70,7 @@ export default function Task() {
                         <ArrowLeft size={18} />
                     </span>
 
-                    <span className={`icon bg-[#453c3c6a] `}
+                    <span className={`icon bg-[#453c3c6a] ${activeTask.createdBy === user.uid ? ' ' : ' hidden '}`}
                         onClick={() => setShowDelete(true)}>
                         <Trash size={18} />
                     </span>
@@ -108,41 +108,44 @@ export default function Task() {
                         spellCheck="false"
                     />
                 ) : (
-                    <p className='opacity-60 text-md'>{formatTextWithNewLines(activeTask?.description)}</p>
+                    <p className={`opacity-60 text-md ${activeTask.isCompleted ? 'line' : ''}`}>{formatTextWithNewLines(activeTask?.description)}</p>
                 )}
 
                 {/* Bottom Section */}
                 <div className="mt-5 flex justify-between flex-wrap">
-                    {activeTask.updatedAt && <p className='italic min-w-[250px] font-light text-[10px] text-zinc-500'>Last Updated At {activeTask.updatedAt}</p>}
+                    {activeTask.updatedAt && <p className='italic min-w-[250px] font-light text-[10px] text-zinc-500'>Updated At {activeTask.updatedAt}</p>}
                     <p className='italic min-w-[250px] font-light text-[10px] text-zinc-500'>Created At {activeTask.createdAt}</p>
                 </div>
 
                 <div className='mt-5 flex items-center justify-end gap-1'>
-                    <div className='flex'>
+                    <div className={`flex ${activeTask.createdBy === user?.uid ? ' ' : ' hidden '}`}>
                         <span className='check-icon '>
                             <Checkbox
                                 isChecked={activeTask.isCompleted}
                                 handleChange={() => {
                                     toggleComplete(activeTask._id).then(() => !activeTask.isCompleted ? toast('Marked Completed!', { icon: '🫡', }) : toast('Marked Incomplete', { icon: '🙂', }))
-
                                 }}
                             />
                         </span>
                         {
                             isEditing ? (
-                                <span onClick={() => {
+                                <span title='save' onClick={() => {
                                     setIsEditing(prev => !prev)
                                     if (newTitle !== activeTask.title || newDescription !== activeTask.description) {
-                                        updateTask(activeTask._id, newTitle, newDescription)
-                                            .then(() => toast.success('Updated Successfully'))
-                                            .catch(() => toast.error('Something went wrong'))
+                                        if (activeTask.createdBy === user.uid) {
+                                            updateTask(activeTask._id, newTitle, newDescription)
+                                                .then(() => toast.success('Updated Successfully'))
+                                                .catch(() => toast.error('Something went wrong'))
+                                        } else {
+                                            toast.error('You are not authorized to update this')
+                                        }
                                     } else setIsEditing(false)
                                 }}
                                     className='check icon bg-violet-500'>
                                     <Check size={18} />
                                 </span>
                             ) : (
-                                <span
+                                <span title='Update'
                                     onClick={() => setIsEditing(prev => !prev)}
                                     className={`pencil icon bg-[#453c3c6a] ${activeTask.isCompleted ? ' hidden ' : ' '}`}>
                                     <Pencil size={18} />
@@ -155,13 +158,17 @@ export default function Task() {
                     <Delete
                         handleCancel={() => setShowDelete(false)}
                         handleDelete={() => {
-                            deleteTask(activeTask._id)
-                                .then(() => {
-                                    navigate('/')
-                                    setState(prev => !prev)
-                                    toast.success('Deleted Successfully')
-                                })
-                                .catch(() => toast.error('Something went wrong'))
+                            if (activeTask.createdBy === user?.uid) {
+                                deleteTask(activeTask._id)
+                                    .then(() => {
+                                        navigate('/')
+                                        setState(prev => !prev)
+                                        toast.success('Deleted Successfully')
+                                    })
+                                    .catch(() => toast.error('Something went wrong'))
+                            } else {
+                                toast.error('You are not authorized to delete this')
+                            }
                         }}
                     />}
             </div>
