@@ -108,7 +108,7 @@ export default function Task() {
                         spellCheck="false"
                     />
                 ) : (
-                    <p className={`opacity-60 text-md ${activeTask.isCompleted ? 'line' : ''}`}>{formatTextWithNewLines(activeTask?.description)}</p>
+                    <p className={`opacity-60 text-md `}>{formatTextWithNewLines(activeTask?.description)}</p>
                 )}
 
                 {/* Bottom Section */}

@@ -76,7 +76,7 @@ export default function Navbar({ }) {
                                                 setLoading(true)
                                                 signout().then(() => {
                                                     setState(prev => !prev)
-                                                    setShowProfile(false)
+                                                    // setShowProfile(false)
                                                     toast.success('Logged out')
                                                     setLoading(false)
                                                     nav('/')

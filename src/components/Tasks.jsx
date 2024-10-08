@@ -52,14 +52,14 @@ export default function Tasks() {
     )
 
     return (
-        <div className=' min-h-screen w-full  flex items-start justify-center pb-5 z-50'>
-            <div className='flex w-full items-center justify-center gap-5 flex-wrap '>
+        <div className=' min-h-[90vh] w-full  flex items-start justify-center pb-5 z-50'>
+            <div className='flex w-full items-center justify-center pt-2 gap-5 flex-wrap '>
                 {loading && <Loader />}
                 {/* Filter and Search */}
                 {
                     showSearch || showFilter ?
                         <>
-                            <div className=' w-full pt-4  flex items-center justify-center flex-wrap gap-3'>
+                            <div className=' w-full pt-1 flex items-center justify-center flex-wrap gap-3'>
                                 {showFilter && <Filter />}
                                 {showSearch && <SearchInput />}
                             </div>
@@ -67,7 +67,7 @@ export default function Tasks() {
                 }
 
                 {filteredTasks.length > 0 ? (
-                    filteredTasks.map((task, index) => (
+                    filteredTasks.slice().reverse().map((task, index) => (
                         <TaskCard
                             key={task._id}
                             complete={task.isCompleted}

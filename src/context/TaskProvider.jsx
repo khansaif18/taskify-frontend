@@ -63,12 +63,13 @@ export default function TaskProvider({ children }) {
                 if (data) {
                     setTasks(data);
                 } else {
-                    console.log('No tasks found');
+                    // console.log('No tasks found');
                     setTasks([]);
                 }
             }
         } catch (error) {
-            console.log('Error fetching tasks:', error);
+            // console.log('Error fetching tasks:', error);
+            toast.error('Something went wrong')
             setLoading(false);
         }
     };

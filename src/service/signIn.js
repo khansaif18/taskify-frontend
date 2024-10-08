@@ -9,7 +9,7 @@ export const googleSignIn = async () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
     } catch (error) {
-        console.error('Error during sign-in:', error);
+        // console.error('Error during sign-in:', error);
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -22,6 +22,6 @@ export const signout = async () => {
     try {
         await signOut(auth);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };
