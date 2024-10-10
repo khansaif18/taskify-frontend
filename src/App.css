@@ -93,6 +93,22 @@
     }
 }
 
+/* Pop up  */
+
+.tudun {
+    animation: tudun 0.5s ease-in;
+}
+
+@keyframes tudun {
+    50% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
 
 /* Hide scrollbar in Chrome, Safari, and Opera */
 ::-webkit-scrollbar {

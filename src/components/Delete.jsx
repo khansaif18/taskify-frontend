@@ -5,7 +5,7 @@ export default function Delete({ handleDelete, handleCancel}) {
     return (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center mt-[-5rem]'>
             <div
-                className="w-[250px] flex flex-col p-4 items-center justify-center bg-[#181818] shadow-lg rounded-2xl ">
+                className="w-[250px] tudun flex flex-col p-4 items-center justify-center bg-[#181818] shadow-lg rounded-2xl ">
                 <div className="">
                     <div className="text-center px-3 py-2 flex-auto justify-center">
                         <svg
