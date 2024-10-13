@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { ArrowLeft, Check, Pencil, RefreshCcw, Share2, Trash, X } from 'lucide-react'
+import { ArrowLeft, Check, Pencil, Trash, X } from 'lucide-react'
 import { useTask } from '../context/TaskProvider'
 import { useNavigate, useParams } from 'react-router-dom'
 import Checkbox from '../components/Checbox'
 import Delete from '../components/Delete'
 import Loader from '../components/Loader'
 import toast from 'react-hot-toast'
-import axios from 'axios'
+import formatDateTime from '../service/getDay'
 
 export default function Task() {
     const params = useParams()
@@ -79,10 +79,11 @@ export default function Task() {
 
 
                 {/* Mid Section */}
+
                 {isEditing ? (
                     <textarea
                         ref={titleTextareaRef}
-                        className={`pt-2 mb-2 text-violet-600 bg-transparent font-bold tracking-wide text-2xl outline-none w-full  min-w-0 resize-none `}
+                        className={`pt-2 mb-1 text-violet-600 capitalize bg-transparent/20 font-bold tracking-wide text-2xl outline-none w-full  min-w-0 resize-none `}
                         disabled={!isEditing}
                         value={newTitle}
                         onChange={handleTitleChange}
@@ -91,13 +92,18 @@ export default function Task() {
                         spellCheck="false"
                     />
                 ) : (
-                    <h1 className={`pt-2 mb-2 bg-transparent capitalize text-violet-600 font-bold tracking-wide text-2xl outline-none w-full min-w-0 overflow-hidden ${activeTask.isCompleted ? 'line' : ''}`}>{activeTask.title}</h1>
+                    <h1 className={`pt-2 mb-1 bg-transparent capitalize text-violet-600 font-bold tracking-wide text-2xl outline-none w-full min-w-0 overflow-hidden ${activeTask.isCompleted ? 'line' : ''}`}>{activeTask.title}</h1>
                 )}
+
+                <span className='font-normal text-[12px] text-gray-500 my-2 tracking-wide'>
+                    {formatDateTime(activeTask.createdAt)} | {`${activeTask.description.trim().length} Characters`}
+                </span>
+
 
                 {isEditing ? (
                     <textarea
                         ref={descriptionTextareaRef}
-                        className={`text-white/80 cursor-text bg-transparent outline-none resize-none w-full`}
+                        className={`text-white/80  cursor-text bg-transparent/20 outline-none resize-none w-full`}
                         disabled={!isEditing}
                         value={newDescription}
                         onChange={handleDescriptionChange}
@@ -108,13 +114,13 @@ export default function Task() {
                         spellCheck="false"
                     />
                 ) : (
-                    <p className={`opacity-60 text-md `}>{formatTextWithNewLines(activeTask?.description)}</p>
+                    <p className={`opacity-80 text-md `}>{formatTextWithNewLines(activeTask?.description)}</p>
                 )}
 
                 {/* Bottom Section */}
                 <div className="mt-5 flex justify-between flex-wrap">
                     {activeTask.updatedAt && <p className='italic min-w-[250px] font-light text-[10px] text-zinc-500'>Updated At {activeTask.updatedAt}</p>}
-                    <p className='italic min-w-[250px] font-light text-[10px] text-zinc-500'>Created At {activeTask.createdAt}</p>
+                    {/* <p className='italic min-w-[250px] font-light text-[10px] text-zinc-500'>Created At {activeTask.createdAt}</p> */}
                 </div>
 
                 <div className='mt-5 flex items-center justify-end gap-1'>
@@ -131,7 +137,7 @@ export default function Task() {
                             isEditing ? (
                                 <span title='save' onClick={() => {
                                     setIsEditing(prev => !prev)
-                                    if (newTitle !== activeTask.title || newDescription !== activeTask.description) {
+                                    if (newTitle.trim() !== activeTask.title.trim() || newDescription.trim() !== activeTask.description.trim()) {
                                         if (activeTask.createdBy === user.uid) {
                                             updateTask(activeTask._id, newTitle, newDescription)
                                                 .then(() => toast.success('Updated Successfully'))
@@ -139,7 +145,10 @@ export default function Task() {
                                         } else {
                                             toast.error('You are not authorized to update this')
                                         }
-                                    } else setIsEditing(false)
+                                    } else {
+                                        setIsEditing(false)
+                                        toast('Nothing to Update!', { icon: '🥱', })
+                                    }
                                 }}
                                     className='check icon bg-violet-500'>
                                     <Check size={18} />
