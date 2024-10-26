@@ -3,9 +3,12 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Task from './pages/Task'
+import { serviceWorker } from './service/serviceWorker.js'
+import { useEffect } from 'react'
 
 
 function App() {
+  // useEffect(() => { serviceWorker() }, [])
   return (
     <div className='app'>
       <Navbar />

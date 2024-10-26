@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { ArrowLeft, Check, Pencil, Trash, X } from 'lucide-react'
+import { ArrowLeft, Check, Pencil, Trash, X, AlarmClockPlusIcon } from 'lucide-react'
 import { useTask } from '../context/TaskProvider'
 import { useNavigate, useParams } from 'react-router-dom'
 import Checkbox from '../components/Checbox'
@@ -7,6 +7,8 @@ import Delete from '../components/Delete'
 import Loader from '../components/Loader'
 import toast from 'react-hot-toast'
 import formatDateTime from '../service/getDay'
+import Schedule from '../components/Schedule'
+import NotificationComponent from '../components/NotificationComponent '
 
 export default function Task() {
     const params = useParams()
@@ -16,6 +18,7 @@ export default function Task() {
     const activeTask = task[0]
 
     const [showDelete, setShowDelete] = useState(false)
+    const [showSchedule, setShowSchedule] = useState(false)
 
     const [isEditing, setIsEditing] = useState(false)
     const [newTitle, setNewTitle] = useState(activeTask?.title || '')
@@ -61,6 +64,7 @@ export default function Task() {
 
     if (activeTask) return (
         <div className=' w-full min-h-[85vh] overflow-scroll flex justify-center pb-10'>
+            {/* <NotificationComponent/> */}
             {loading && <Loader />}
             <div className='relative my-bg w-[550px] max-w-[100%] px-5 flex flex-col py-6 pt-0 overflow-hidden'>
                 {/* Top section */}
@@ -69,12 +73,15 @@ export default function Task() {
                     <span onClick={() => navigate('/')} className='icon bg-[#453c3c6a]'>
                         <ArrowLeft size={18} />
                     </span>
+                    <div className={`flex gap-2 ${activeTask.createdBy === user.uid ? ' ' : ' hidden '}`}>
+                        <span className={`icon bg-[#453c3c6a] `} onClick={() => setShowDelete(true)}>
+                            <Trash size={18} />
+                        </span>
 
-                    <span className={`icon bg-[#453c3c6a] ${activeTask.createdBy === user.uid ? ' ' : ' hidden '}`}
-                        onClick={() => setShowDelete(true)}>
-                        <Trash size={18} />
-                    </span>
-
+                        <span className={`icon bg-[#453c3c6a] `} onClick={() => setShowSchedule(true)}>
+                            <AlarmClockPlusIcon size={18} />
+                        </span>
+                    </div>
                 </div>
 
 
@@ -114,7 +121,7 @@ export default function Task() {
                         spellCheck="false"
                     />
                 ) : (
-                    <p className={`opacity-80 text-md `}>{formatTextWithNewLines(activeTask?.description)}</p>
+                    <p className={`opacity-50 text-md `}>{formatTextWithNewLines(activeTask?.description)}</p>
                 )}
 
                 {/* Bottom Section */}
@@ -163,6 +170,13 @@ export default function Task() {
                         }
                     </div>
                 </div>
+                {showSchedule &&
+                    <Schedule
+                        handleCancel={() => setShowSchedule(false)}
+                        title={activeTask.title.replace(/\b\w/g, (char) => char.toUpperCase())}
+                        noteId={params.taskId}
+                    />
+                }
                 {showDelete &&
                     <Delete
                         handleCancel={() => setShowDelete(false)}
