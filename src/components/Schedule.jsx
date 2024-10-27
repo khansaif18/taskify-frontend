@@ -37,7 +37,7 @@ export default function Schedule({ title, noteId, handleCancel }) {
                 <h1 className='text-md text-center tracking-wide'>Get Reminded via Notification </h1>
 
                 <DatePicker
-                    className='bg-transparent my-border py-2 my-2 text-center rounded-md outline-none tracking-wide opacity-60'
+                    className='bg-transparent my-border py-2 my-2 text-center rounded-md outline-none tracking-wide opacity-60 px-0 w-[200px]'
                     selected={dateTime}
                     onChange={date => setDateTime(date)}
                     showTimeSelect
@@ -45,9 +45,9 @@ export default function Schedule({ title, noteId, handleCancel }) {
                     placeholderText="Select Date and Time"
                 />
 
-                <div className='w-full flex justify-center'>
+                <div className='w-full flex justify-center overflow-hidden'>
                     <button
-                        className="mb-2 md:mb-0 bg-gray-600 px-5 py-2 text-sm shadow-sm font-medium tracking-wider  text-gray-300 rounded-full hover:shadow-lg hover:bg-gray-700 transition ease-in duration-300" onClick={handleCancel}>
+                        className=" bg-gray-600 px-5 py-2 text-sm shadow-sm font-medium tracking-wider  text-gray-300 rounded-full hover:shadow-lg hover:bg-gray-700 transition ease-in duration-300" onClick={handleCancel}>
                         Cancel
                     </button>
                     <button

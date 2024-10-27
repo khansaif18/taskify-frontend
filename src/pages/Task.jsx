@@ -60,11 +60,10 @@ export default function Task() {
         ));
     };
 
-    // if (loading) return <Loader />
+    if (loading) return <Loader />
 
     if (activeTask) return (
         <div className=' w-full min-h-[85vh] overflow-scroll flex justify-center pb-10'>
-            {/* <NotificationComponent/> */}
             {loading && <Loader />}
             <div className='relative my-bg w-[550px] max-w-[100%] px-5 flex flex-col py-6 pt-0 overflow-hidden'>
                 {/* Top section */}
