@@ -459,3 +459,9 @@ body {
     opacity: 1;
     transition-duration: 0.3s;
 }
+
+.stat-bor{
+    border: 1px solid #cccccc30;
+    width: 100%;
+    border-radius: 50%;
+}

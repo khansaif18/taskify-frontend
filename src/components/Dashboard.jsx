@@ -13,7 +13,7 @@ export default function Dashboard() {
             setComplete(tasks.filter(task => task.isCompleted))
             setInComplete(tasks.filter(task => !task.isCompleted))
         }
-    }, [])
+    }, [loading])
 
     if (!loading) return (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center mt-[-5rem] z-40'>
@@ -23,7 +23,11 @@ export default function Dashboard() {
                     <X />
                 </span>
 
-                <h1 className='text-2xl text-center my-2 mb-5 tracking-wide'>Note / Task Stats</h1>
+                <h1 className='text-2xl text-center my-2 mb-2 tracking-wider'>Stats</h1>
+
+                <div className='w-full flex items-center justify-center mb-4'>
+                    <span className='stat-bor'></span>
+                </div>
 
                 <div className='item bg-black/20 px-2 py-3 rounded-md'>
                     <div className="range">
