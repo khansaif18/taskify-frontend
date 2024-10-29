@@ -1,4 +1,4 @@
-import { LogIn, LogOut, Search, SlidersHorizontal, User } from 'lucide-react'
+import { ChartColumnIncreasing, ListFilter, LogOut, Search, User } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTask } from '../context/TaskProvider'
@@ -10,7 +10,7 @@ export default function Navbar({ }) {
     const nav = useNavigate()
     const [dpUrl, setDpUrl] = useState('')
     // const [showProfile, setShowProfile] = useState(false)
-    const { tasks, user, setState, showSearch, setShowSearch, showFilter, setShowFilter, filter, setFilter, setSearchValue, setLoading } = useTask()
+    const { tasks, user, setState, showSearch, setShowSearch, showFilter, setShowFilter, filter, setFilter, setSearchValue, setLoading, showDashboard, setShowDashboard } = useTask()
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -20,7 +20,7 @@ export default function Navbar({ }) {
 
 
     return (
-        <div className={`nav-border fixed top-0  w-full py-3  z-50 bg-[#1b1b1b] backdrop-blur-md`}>
+        <div className={`nav-border fixed top-0  w-full py-3 z-50 bg-[#1b1b1b] backdrop-blur-md`}>
             <nav className='flex items-center w-full justify-around z-40'>
                 <h2 className='text-2xl tracking-wide font-bold flex items-center cursor-pointer'
                     onClick={() => nav('/')}>
@@ -41,6 +41,7 @@ export default function Navbar({ }) {
                                 onClick={() => {
                                     setSearchValue('')
                                     setShowSearch(prev => !prev)
+                                    setShowDashboard(false)
                                 }} className={` ${location.pathname === '/' ? '' : 'invisible'}
                              p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer 
                              ${tasks && tasks.length < 1 ? 'invisible ' : 'visible'}`}>
@@ -50,11 +51,22 @@ export default function Navbar({ }) {
                             <span style={showFilter ? { backgroundColor: '#5b21b6' } : { background: 'none' }} onClick={() => {
                                 setShowFilter(!showFilter)
                                 setFilter({ ...filter, all: true, complete: false, incomplete: false })
-                            }
-                            }
+                                setShowDashboard(false)
+                            }}
                                 className={` ${location.pathname === '/' ? '' : 'invisible'}
                                 ${tasks && tasks.length < 1 ? ' invisible ' : ' visible '}
-                             p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer`}> <SlidersHorizontal size={20} /></span>
+                             p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer`}>
+                                <ListFilter size={20} />
+                            </span>
+
+                            <span style={showDashboard ? { backgroundColor: '#5b21b6' } : { background: 'none' }} onClick={() => {
+                                setShowDashboard(prev => !prev)
+                            }}
+                                className={` ${location.pathname === '/' ? '' : 'invisible'}
+                                ${tasks && tasks.length < 1 ? ' invisible ' : ' visible '}
+                             p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer`}>
+                                <ChartColumnIncreasing size={20} />
+                            </span>
 
                             <span className='p-2 rounded-md papa bg-violet-800  duration-200 cursor-pointer relative z-50'
                             // onClick={() => setShowProfile(prev => !prev)}

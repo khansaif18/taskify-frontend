@@ -22,6 +22,7 @@ export default function TaskProvider({ children }) {
     const [loading, setLoading] = useState(false)
     const [state, setState] = useState(true)
     const [user, setUser] = useState(null)
+    const [showDashboard, setShowDashboard] = useState(false)
 
     // Auth
     useEffect(() => {
@@ -131,7 +132,7 @@ export default function TaskProvider({ children }) {
         }
     }
 
-    const values = { user, setUser, showSearch, setShowSearch, showFilter, setShowFilter, searchValue, setSearchValue, filter, setFilter, tasks, loading, setLoading, newTask, updateTask, toggleComplete, deleteTask, state, setState }
+    const values = { user, setUser, showSearch, setShowSearch, showFilter, setShowFilter, searchValue, setSearchValue, filter, setFilter, tasks, loading, setLoading, newTask, updateTask, toggleComplete, deleteTask, state, setState, showDashboard, setShowDashboard }
     return (
         <TaskContext.Provider value={values}>
             {children}

@@ -16,15 +16,16 @@
     padding-top: 65px;
 }
 
-.loading{
+.loading {
     animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    50%{
+    50% {
         transform: rotate(160deg);
     }
-    100%{
+
+    100% {
         transform: rotate(360deg);
     }
 }
@@ -393,4 +394,68 @@ body {
         background: #4a00e0;
         box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent, 0 36px 0 -10px transparent, -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
     }
+}
+
+/* dashboard */
+
+.data {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.range {
+    position: relative;
+    background-color: #E5E7EB;
+    width: 100%;
+    height: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.range .fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #5b21b6;
+    width: 76%;
+    height: 100%;
+    border-radius: 0.25rem;
+}
+
+/* tooltip */
+
+.tooltip {
+    position: absolute;
+    top: -20px;
+    opacity: 0;
+    background-color: #ffe53b;
+    background-image: linear-gradient(147deg, #ffe53b 0%, #ff2525 74%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.2s;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+}
+
+.tooltip::before {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #ff2525;
+    background-size: 1000%;
+    background-position: center;
+    transform: rotate(45deg);
+    bottom: -15%;
+    transition-duration: 0.3s;
+}
+
+.range:hover .tooltip {
+    top: -40px;
+    opacity: 1;
+    transition-duration: 0.3s;
 }

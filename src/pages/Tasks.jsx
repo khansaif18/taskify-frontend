@@ -9,11 +9,12 @@ import Login from '../components/Login'
 import toast from 'react-hot-toast'
 import SearchInput from '../components/SearchInput'
 import Filter from '../components/Filter'
+import Dashboard from '../components/Dashboard'
 
 export default function Tasks() {
 
     const navigate = useNavigate()
-    const { tasks, searchValue, filter, loading, user, showSearch, showFilter } = useTask()
+    const { tasks, searchValue, filter, loading, user, showSearch, showFilter, showDashboard } = useTask()
     const [showForm, setShowForm] = useState(false)
 
     useEffect(() => {
@@ -52,7 +53,7 @@ export default function Tasks() {
     )
 
     return (
-        <div className=' min-h-[90vh] w-full flex items-start justify-center pb-5 z-50'>
+        <div className=' min-h-[90vh] w-full flex items-start justify-center pb-5 z-40'>
             <div className='flex w-full items-center justify-center pt-2 gap-5 flex-wrap '>
                 {loading && <Loader />}
                 {/* Filter and Search */}
@@ -92,6 +93,9 @@ export default function Tasks() {
                     </div>
                 )}
             </div>
+            {showDashboard &&
+                <Dashboard />
+            }
             {showForm &&
                 <TaskForm
                     handleClose={() => setShowForm(false)}
