@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useTask } from '../context/TaskProvider'
-import Loader from './Loader'
-import TaskCard from './TaskCard'
+import Loader from '../components/Loader'
+import TaskCard from '../components/TaskCard'
 import { useNavigate } from 'react-router-dom'
-import TaskForm from './TaskForm'
-import Plus from './Plus'
-import Login from './Login'
+import TaskForm from '../components/TaskForm'
+import Plus from '../components/Plus'
+import Login from '../components/Login'
 import toast from 'react-hot-toast'
-import SearchInput from './SearchInput'
-import Filter from './Filter'
+import SearchInput from '../components/SearchInput'
+import Filter from '../components/Filter'
 
 export default function Tasks() {
 
@@ -52,7 +52,7 @@ export default function Tasks() {
     )
 
     return (
-        <div className=' min-h-[90vh] w-full  flex items-start justify-center pb-5 z-50'>
+        <div className=' min-h-[90vh] w-full flex items-start justify-center pb-5 z-50'>
             <div className='flex w-full items-center justify-center pt-2 gap-5 flex-wrap '>
                 {loading && <Loader />}
                 {/* Filter and Search */}

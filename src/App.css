@@ -16,6 +16,19 @@
     padding-top: 65px;
 }
 
+.loading{
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    50%{
+        transform: rotate(160deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
 .nav-border {
     border-bottom: 1px solid #3635356b;
 }

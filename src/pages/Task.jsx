@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { ArrowLeft, Check, Pencil, Trash, X, AlarmClockPlusIcon } from 'lucide-react'
+import { ArrowLeft, Check, Pencil, Trash, X, AlarmClockPlusIcon, Loader2 } from 'lucide-react'
 import { useTask } from '../context/TaskProvider'
 import { useNavigate, useParams } from 'react-router-dom'
 import Checkbox from '../components/Checbox'
@@ -60,11 +60,11 @@ export default function Task() {
         ));
     };
 
-    if (loading) return <Loader />
+    // if (loading) return <Loader />
 
     if (activeTask) return (
         <div className=' w-full min-h-[85vh] overflow-scroll flex justify-center pb-10'>
-            {loading && <Loader />}
+            {/* {loading && <Loader />} */}
             <div className='relative my-bg w-[550px] max-w-[100%] px-5 flex flex-col py-6 pt-0 overflow-hidden'>
                 {/* Top section */}
                 <div className='flex items-center bb justify-between py-2 px-0 gap-2'>
@@ -77,7 +77,7 @@ export default function Task() {
                             <Trash size={18} />
                         </span>
 
-                        <span className={`icon bg-[#453c3c6a] `} onClick={() => setShowSchedule(true)}>
+                        <span className={`icon bg-[#453c3c6a] ${activeTask.isCompleted ? ' hidden ' : ' '} `} onClick={() => setShowSchedule(true)}>
                             <AlarmClockPlusIcon size={18} />
                         </span>
                     </div>
@@ -132,12 +132,24 @@ export default function Task() {
                 <div className='mt-5 flex items-center justify-end gap-1'>
                     <div className={`flex ${activeTask.createdBy === user?.uid ? ' ' : ' hidden '}`}>
                         <span className='check-icon '>
-                            <Checkbox
-                                isChecked={activeTask.isCompleted}
-                                handleChange={() => {
-                                    toggleComplete(activeTask._id).then(() => !activeTask.isCompleted ? toast('Marked Completed!', { icon: '🫡', }) : toast('Marked Incomplete', { icon: '🙂', }))
-                                }}
-                            />
+                            {
+                                loading ?
+                                    <Loader2 className='loading' size={18} /> :
+                                    <Checkbox
+                                        isChecked={activeTask.isCompleted}
+                                        handleChange={() => {
+                                            try {
+                                                toggleComplete(activeTask._id)
+                                                    .then(() => !activeTask.isCompleted ?
+                                                        toast('Marked Completed!', { icon: '🫡', }) : toast('Marked Incomplete', { icon: '🙂', }))
+                                            } catch (error) {
+                                                toast.error('something went wrong')
+                                            } finally {
+                                                setIsEditing(false)
+                                            }
+                                        }}
+                                    />
+                            }
                         </span>
                         {
                             isEditing ? (
@@ -163,7 +175,11 @@ export default function Task() {
                                 <span title='Update'
                                     onClick={() => setIsEditing(prev => !prev)}
                                     className={`pencil icon bg-[#453c3c6a] ${activeTask.isCompleted ? ' hidden ' : ' '}`}>
-                                    <Pencil size={18} />
+                                    {
+                                        loading ?
+                                            <Loader2 className='loading' size={18} /> :
+                                            <Pencil size={18} />
+                                    }
                                 </span>
                             )
                         }

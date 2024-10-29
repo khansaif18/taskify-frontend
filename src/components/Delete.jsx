@@ -1,6 +1,10 @@
 import React from 'react'
+import { useTask } from '../context/TaskProvider'
+import { Loader2 } from 'lucide-react'
 
-export default function Delete({ handleDelete, handleCancel}) {
+export default function Delete({ handleDelete, handleCancel }) {
+
+    const { loading } = useTask()
 
     return (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center mt-[-5rem]'>
@@ -21,13 +25,13 @@ export default function Delete({ handleDelete, handleCancel}) {
                         <h2 className="text-xl font-bold py-1 text-gray-200">Are you sure?</h2>
                         <p className="text-sm text-gray-500 px-2">This cannot be undone</p>
                     </div>
-                    <div className="px-2 py-1 w-full  mt-1 text-center space-x-1 md:block">
+                    <div className="px-2 py-1 w-full  mt-1 text-center flex items-center justify-center">
                         <button
-                            className="mb-2 md:mb-0 bg-gray-600 px-5 py-2 text-sm shadow-sm font-medium tracking-wider  text-gray-300 rounded-full hover:shadow-lg hover:bg-gray-700 transition ease-in duration-300" onClick={handleCancel}>
-                            Cancel</button>
+                            className="mb-2 md:mb-0 bg-gray-600 px-5 py-2 text-sm shadow-sm font-medium tracking-wider  text-gray-300 rounded-full hover:shadow-lg hover:bg-gray-700 transition ease-in duration-300 w-[90px]" onClick={handleCancel}>
+                            Cancel  </button>
                         <button
-                            className="bg-violet-600 hover:bg-violet-800 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider text-white rounded-full transition ease-in duration-300 " onClick={handleDelete}>
-                            Confirm
+                            className="bg-violet-600 hover:bg-violet-800 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider text-white rounded-full transition ease-in duration-300 flex items-center justify-center w-[90px]" onClick={handleDelete}>
+                            {loading ? <Loader2 className='loading' size={18} /> : 'Confirm'}
                         </button>
                     </div>
                 </div>

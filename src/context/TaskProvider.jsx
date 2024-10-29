@@ -21,7 +21,6 @@ export default function TaskProvider({ children }) {
     const [tasks, setTasks] = useState(null)
     const [loading, setLoading] = useState(false)
     const [state, setState] = useState(true)
-
     const [user, setUser] = useState(null)
 
     // Auth
@@ -127,8 +126,6 @@ export default function TaskProvider({ children }) {
                 }
             })
             await fetchUserTasks()
-        } catch (error) {
-            console.log('error delete task : ', error);
         } finally {
             setLoading(false)
         }

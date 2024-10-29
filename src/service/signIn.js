@@ -9,6 +9,7 @@ export const googleSignIn = async () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
     } catch (error) {
+        throw new Error('Could not log in')
         // console.error('Error during sign-in:', error);
         // Handle Errors here.
         const errorCode = error.code;

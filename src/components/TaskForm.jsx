@@ -1,11 +1,11 @@
-import { X } from 'lucide-react'
+import { Loader2, X } from 'lucide-react'
 import React, { useState } from 'react'
 import { useTask } from '../context/TaskProvider'
 import toast from 'react-hot-toast'
 
 export default function TaskForm({ handleClose }) {
 
-    const { tasks, user, newTask, setState } = useTask()
+    const { tasks, user, newTask, setState, loading } = useTask()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
@@ -73,9 +73,9 @@ export default function TaskForm({ handleClose }) {
 
                     <div className="flex justify-end">
                         <button
-                            className="bg-gradient-to-r bg-[#352e2ec1] tracking-wider text-white px-4 py-2 font-bold rounded-md hover:opacity-80"
+                            className="bg-gradient-to-r bg-[#352e2ec1] tracking-wider text-white px-4 py-2 font-bold rounded-md hover:opacity-80 w-[120px] flex items-center justify-center gap-2"
                             type="submit">
-                            Create
+                           Create {loading ? <Loader2 size={16} className='loading' /> : ''}
                         </button>
                     </div>
                 </form>
