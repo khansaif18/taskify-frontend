@@ -420,48 +420,23 @@ body {
     width: 76%;
     height: 100%;
     border-radius: 0.25rem;
+    transition: width 1s ease; 
 }
 
 /* tooltip */
 
-.tooltip {
-    position: absolute;
-    top: -20px;
-    opacity: 0;
-    background-color: #ffe53b;
-    background-image: linear-gradient(147deg, #ffe53b 0%, #ff2525 74%);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition-duration: 0.2s;
-    pointer-events: none;
-    letter-spacing: 0.5px;
-}
-
-.tooltip::before {
-    position: absolute;
-    content: "";
-    width: 10px;
-    height: 10px;
-    background-color: #ff2525;
-    background-size: 1000%;
-    background-position: center;
-    transform: rotate(45deg);
-    bottom: -15%;
-    transition-duration: 0.3s;
-}
-
-.range:hover .tooltip {
-    top: -40px;
-    opacity: 1;
-    transition-duration: 0.3s;
-}
 
 .stat-bor{
-    border: 1px solid #cccccc30;
+    border: 1px solid #cccccc90;
     width: 100%;
     border-radius: 50%;
+}
+
+
+
+.fill {
+    background-color: #4CAF50; /* Adjust color as needed */
+    height: 8px; /* Adjust height as needed */
+    transition: width 1s ease; /* 1-second smooth transition */
+    border-radius: 4px;
 }

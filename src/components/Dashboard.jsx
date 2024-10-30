@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTask } from '../context/TaskProvider'
 import { X } from 'lucide-react'
+import ProgressBar from './ProgressBar'
 
 export default function Dashboard() {
 
@@ -8,16 +9,33 @@ export default function Dashboard() {
     const [complete, setComplete] = useState(0)
     const [inComplete, setInComplete] = useState(0)
 
+    const [totalWidth, setTotalWidth] = useState(0)
+    const [completeWidth, setCompleteWidth] = useState(0)
+    const [inCompleteWidth, setInCompleteWidth] = useState(0)
+
     useEffect(() => {
         if (!loading) {
-            setComplete(tasks.filter(task => task.isCompleted))
-            setInComplete(tasks.filter(task => !task.isCompleted))
+            const completedTasks = tasks.filter(task => task.isCompleted)
+            const incompleteTasks = tasks.filter(task => !task.isCompleted)
+
+            setComplete(completedTasks)
+            setInComplete(incompleteTasks)
+
+            const calculatedTotalWidth = Math.round((tasks.length / 25) * 100)
+            const calculatedCompleteWidth = Math.round((completedTasks.length / tasks.length) * 100)
+            const calculatedInCompleteWidth = Math.round((incompleteTasks.length / tasks.length) * 100)
+
+            setTimeout(() => {
+                setTotalWidth(calculatedTotalWidth)
+                setCompleteWidth(calculatedCompleteWidth)
+                setInCompleteWidth(calculatedInCompleteWidth)
+            }, 200)
         }
-    }, [loading])
+    }, [loading, tasks])
 
     if (!loading) return (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center mt-[-5rem] z-40'>
-            <div className="max-w-[95%] tudun mx-auto relative overflow-hidden z-10 bg-[#1b1b1b] py-8 px-6 rounded-lg  before:rounded-full before:-z-10 before:blur-2xl after:w-32 after:h-32 after:absolute  after:rounded-full after:-z-10 after:blur-xl after:top-24 after:-right-12 w-[300px]">
+            <div className="max-w-[95%] tudun mx-auto relative overflow-hidden z-10 bg-[#1b1b1b] py-8 px-6 rounded-lg  before:rounded-full before:-z-10 before:blur-2xl after:w-32 after:h-32 after:absolute  after:rounded-full after:-z-10 after:blur-xl after:top-24 after:-right-12 w-[320px]">
 
                 <span className='absolute right-1 top-1 cursor-pointer p-1 rounded opacity-30 hover:bg-gray-600' onClick={() => setShowDashboard(false)}>
                     <X />
@@ -29,38 +47,32 @@ export default function Dashboard() {
                     <span className='stat-bor'></span>
                 </div>
 
-                <div className='item bg-black/20 px-2 py-3 rounded-md'>
-                    <div className="range">
-                        <div className="fill" style={{ width: `${Math.round((tasks.length / 25) * 100)}%` }}> </div>
-                    </div>
-                    <div className='flex items-center justify-between mt-2'>
-                        <p className='text-sm'>Total - {tasks.length}/25 </p>
-                        <p className='text-sm'>{Math.round((tasks.length / 25) * 100)}%</p>
-                    </div>
-                </div>
+                <ProgressBar
+                    title={'Total'}
+                    width={totalWidth}
+                    taskLength={tasks.length}
+                    totalLength={'25'}
+                />
 
-                <div className='item mt-3 bg-black/20 px-2 py-3 rounded-md'>
-                    <div className="range">
-                        <div className="fill" style={{ width: `${Math.round((complete.length / tasks.length) * 100)}%` }}> </div>
-                    </div>
-                    <div className='flex items-center justify-between mt-2'>
-                        <p className='text-sm'>Completed - {complete.length}/{tasks.length} </p>
-                        <p className='text-sm'>{Math.round((complete.length / tasks.length) * 100)}%</p>
-                    </div>
-                </div>
+                <ProgressBar
+                    title={'Completed'}
+                    width={completeWidth}
+                    taskLength={complete.length}
+                    totalLength={tasks.length}
+                />
 
-                <div className='item mt-3 bg-black/20 px-2 py-3 rounded-md'>
-                    <div className="range">
-                        <div className="fill" style={{ width: `${Math.round((inComplete.length / tasks.length) * 100)}%` }}> </div>
-                    </div>
-                    <div className='flex items-center justify-between mt-2'>
-                        <p className='text-sm'>Incomplete - {inComplete.length}/{tasks.length} </p>
-                        <p className='text-sm'>{Math.round((inComplete.length / tasks.length) * 100)}%</p>
-                    </div>
+                <ProgressBar
+                    title={'Incomplete'}
+                    width={inCompleteWidth}
+                    taskLength={inComplete.length}
+                    totalLength={tasks.length}
+                />
+
+                <div className='flex items-center justify-center mt-1 relative top-3 '>
+                    <a href='https://www.github.com/khansaif18' target='_blank' className='text-sm bg-black/30 px-4 py-1 rounded-lg cursor-pointer tracking-wider opacity-50'>&copy; khansaif18</a>
                 </div>
 
             </div>
-
         </div>
     )
 }

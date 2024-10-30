@@ -19,10 +19,19 @@ export default function Task() {
 
     const [showDelete, setShowDelete] = useState(false)
     const [showSchedule, setShowSchedule] = useState(false)
-
+    // const [isLoading, setIsLoading] = useState(false) // new state
     const [isEditing, setIsEditing] = useState(false)
-    const [newTitle, setNewTitle] = useState(activeTask?.title || '')
-    const [newDescription, setNewDescription] = useState(activeTask?.description || '')
+
+    const [newTitle, setNewTitle] = useState(null)
+    const [newDescription, setNewDescription] = useState(null)
+
+
+    useEffect(() => {
+        if (!loading && activeTask) {
+            setNewTitle(activeTask.title)
+            setNewDescription(activeTask.description)
+        }
+    }, [])
 
     const titleTextareaRef = useRef(null)
     const descriptionTextareaRef = useRef(null)
@@ -102,7 +111,7 @@ export default function Task() {
                 )}
 
                 <span className='font-normal text-[12px] text-gray-500 my-2 tracking-wide'>
-                    {formatDateTime(activeTask.createdAt)} | {`${activeTask.description.trim().length} Characters`}
+                    {formatDateTime(activeTask.createdAt)} | {`${isEditing ? newDescription.length : activeTask.description.trim().length} Characters`}
                 </span>
 
 
@@ -126,54 +135,67 @@ export default function Task() {
                 {/* Bottom Section */}
                 <div className="mt-5 flex justify-between flex-wrap">
                     {activeTask.updatedAt && <p className='italic min-w-[250px] font-light text-[10px] text-zinc-500'>Updated At {activeTask.updatedAt}</p>}
-                    {/* <p className='italic min-w-[250px] font-light text-[10px] text-zinc-500'>Created At {activeTask.createdAt}</p> */}
                 </div>
 
                 <div className='mt-5 flex items-center justify-end gap-1'>
                     <div className={`flex ${activeTask.createdBy === user?.uid ? ' ' : ' hidden '}`}>
                         <span className='check-icon '>
                             {
-                                loading ?
-                                    <Loader2 className='loading' size={18} /> :
-                                    <Checkbox
-                                        isChecked={activeTask.isCompleted}
-                                        handleChange={() => {
-                                            try {
-                                                toggleComplete(activeTask._id)
-                                                    .then(() => !activeTask.isCompleted ?
-                                                        toast('Marked Completed!', { icon: '🫡', }) : toast('Marked Incomplete', { icon: '🙂', }))
-                                            } catch (error) {
-                                                toast.error('something went wrong')
-                                            } finally {
-                                                setIsEditing(false)
-                                            }
-                                        }}
-                                    />
+                                isEditing ? '' :
+                                    loading ?
+                                        <Loader2 className='loading' size={18} /> :
+                                        <Checkbox
+                                            isChecked={activeTask.isCompleted}
+                                            handleChange={() => {
+                                                try {
+                                                    toggleComplete(activeTask._id)
+                                                        .then(() => !activeTask.isCompleted ?
+                                                            toast('Marked Completed!', { icon: '🫡', }) :
+                                                            toast('Marked Incomplete', { icon: '🙂', }))
+                                                } catch (error) {
+                                                    toast.error('something went wrong')
+                                                } finally {
+                                                    setIsEditing(false)
+                                                }
+                                            }}
+                                        />
                             }
+                           
                         </span>
                         {
                             isEditing ? (
                                 <span title='save' onClick={() => {
-                                    setIsEditing(prev => !prev)
-                                    if (newTitle.trim() !== activeTask.title.trim() || newDescription.trim() !== activeTask.description.trim()) {
-                                        if (activeTask.createdBy === user.uid) {
-                                            updateTask(activeTask._id, newTitle, newDescription)
-                                                .then(() => toast.success('Updated Successfully'))
-                                                .catch(() => toast.error('Something went wrong'))
+                                    if (!loading) {
+                                        setIsEditing(prev => !prev)
+                                        if (newTitle.trim() !== activeTask.title.trim() || newDescription.trim() !== activeTask.description.trim()) {
+                                            if (activeTask.createdBy === user.uid) {
+                                                // setIsLoading(true)
+                                                updateTask(activeTask._id, newTitle, newDescription)
+                                                    .then(() => {
+                                                        toast.success('Updated Successfully')
+                                                        // setIsLoading(false)
+                                                    })
+                                                    .catch(() => {
+                                                        toast.error('Something went wrong')
+                                                        // setIsLoading(false)
+                                                    })
+                                            } else {
+                                                toast.error('You are not authorized to update this')
+                                            }
                                         } else {
-                                            toast.error('You are not authorized to update this')
+                                            setIsEditing(false)
+                                            toast('Nothing to Update!', { icon: '🥱', })
                                         }
-                                    } else {
-                                        setIsEditing(false)
-                                        toast('Nothing to Update!', { icon: '🥱', })
                                     }
                                 }}
                                     className='check icon bg-violet-500'>
                                     <Check size={18} />
                                 </span>
                             ) : (
-                                <span title='Update'
-                                    onClick={() => setIsEditing(prev => !prev)}
+                                <span title='edit'
+                                    onClick={() => {
+                                        if (!loading) setIsEditing(prev => !prev)
+                                    }}
                                     className={`pencil icon bg-[#453c3c6a] ${activeTask.isCompleted ? ' hidden ' : ' '}`}>
                                     {
                                         loading ?
