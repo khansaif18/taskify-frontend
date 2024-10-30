@@ -69,7 +69,7 @@ export default function Dashboard() {
                 />
 
                 <div className='flex items-center justify-center mt-1 relative top-3 '>
-                    <a href='https://www.github.com/khansaif18' target='_blank' className='text-sm bg-black/30 px-4 py-1 rounded-lg cursor-pointer tracking-wider opacity-50'>&copy; khansaif18</a>
+                    <a href='https://www.github.com/khansaif18' target='_blank' className='text-sm bg-black/30 px-4 py-1 rounded-md cursor-pointer tracking-wider opacity-50'>&copy; khansaif18</a>
                 </div>
 
             </div>

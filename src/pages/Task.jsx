@@ -85,8 +85,8 @@ export default function Task() {
                         <span className={`icon bg-[#453c3c6a] `} onClick={() => setShowDelete(true)}>
                             <Trash size={18} />
                         </span>
-
-                        <span className={`icon bg-[#453c3c6a] ${activeTask.isCompleted ? ' hidden ' : ' '} `} onClick={() => setShowSchedule(true)}>
+                        {/* added class 'hidden' to hide the reminder icon temporarily */}
+                        <span className={`icon hidden bg-[#453c3c6a] ${activeTask.isCompleted ? ' hidden ' : ' '} `} onClick={() => setShowSchedule(true)}>
                             <AlarmClockPlusIcon size={18} />
                         </span>
                     </div>
@@ -111,7 +111,7 @@ export default function Task() {
                 )}
 
                 <span className='font-normal text-[12px] text-gray-500 my-2 tracking-wide'>
-                    {formatDateTime(activeTask.createdAt)} | {`${isEditing ? newDescription.length : activeTask.description.trim().length} Characters`}
+                    {formatDateTime(activeTask.createdAt)} | {`${isEditing ? newDescription.trim().length : activeTask.description.trim().length} Characters`}
                 </span>
 
 

@@ -66,7 +66,7 @@ export default function Tasks() {
                             </div>
                         </> : ''
                 }
-
+                
                 {filteredTasks.length > 0 ? (
                     filteredTasks.slice().reverse().map((task, index) => (
                         <TaskCard
