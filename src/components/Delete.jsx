@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useTask } from '../context/TaskProvider'
 import { Loader2 } from 'lucide-react'
 
@@ -6,10 +6,25 @@ export default function Delete({ handleDelete, handleCancel }) {
 
     const { loading } = useTask()
 
+    const deleteRef = useRef()
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (deleteRef.current && !deleteRef.current.contains(event.target)) {
+                handleCancel()
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [handleCancel]);
+
     return (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center mt-[-5rem]'>
             <div
-                className="w-[250px] tudun flex flex-col p-4 items-center justify-center bg-[#181818] shadow-lg rounded-2xl ">
+                className="w-[250px] tudun flex flex-col p-4 items-center justify-center bg-[#181818] shadow-lg rounded-2xl " ref={deleteRef}>
                 <div className="">
                     <div className="text-center px-3 py-2 flex-auto justify-center">
                         <svg

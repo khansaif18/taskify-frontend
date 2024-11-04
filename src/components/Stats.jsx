@@ -1,11 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTask } from '../context/TaskProvider'
 import { X } from 'lucide-react'
 import ProgressBar from './ProgressBar'
 
 export default function Dashboard() {
 
-    const { setShowDashboard, tasks, loading } = useTask()
+    const { showDashboard, setShowDashboard, tasks, loading } = useTask()
+
+    const statRef = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (statRef.current && !statRef.current.contains(event.target)) {
+                setShowDashboard(false)                
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showDashboard]);
+
+
+
     const [complete, setComplete] = useState(0)
     const [inComplete, setInComplete] = useState(0)
 
@@ -35,7 +53,7 @@ export default function Dashboard() {
 
     if (!loading) return (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center mt-[-5rem] z-40'>
-            <div className="max-w-[95%] tudun mx-auto relative overflow-hidden z-10 bg-[#1b1b1b] py-8 px-6 rounded-lg  before:rounded-full before:-z-10 before:blur-2xl after:w-32 after:h-32 after:absolute  after:rounded-full after:-z-10 after:blur-xl after:top-24 after:-right-12 w-[320px]">
+            <div className="max-w-[95%] tudun mx-auto relative overflow-hidden z-10 bg-[#1b1b1b] py-8 px-6 rounded-lg  before:rounded-full before:-z-10 before:blur-2xl after:w-32 after:h-32 after:absolute  after:rounded-full after:-z-10 after:blur-xl after:top-24 after:-right-12 w-[320px]" ref={statRef}>
 
                 <span className='absolute right-1 top-1 cursor-pointer p-1 rounded opacity-30 hover:bg-gray-600' onClick={() => setShowDashboard(false)}>
                     <X />

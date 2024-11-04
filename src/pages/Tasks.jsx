@@ -9,13 +9,12 @@ import Login from '../components/Login'
 import toast from 'react-hot-toast'
 import SearchInput from '../components/SearchInput'
 import Filter from '../components/Filter'
-import Dashboard from '../components/Dashboard'
+import Dashboard from '../components/Stats'
 
 export default function Tasks() {
 
     const navigate = useNavigate()
-    const { tasks, searchValue, filter, loading, user, showSearch, showFilter, showDashboard } = useTask()
-    const [showForm, setShowForm] = useState(false)
+    const { tasks, searchValue, filter, loading, user, showSearch, showFilter, showForm, setShowForm, showDashboard } = useTask()
 
     useEffect(() => {
         const handleEsc = (event) => event.key === 'Escape' ? setShowForm(false) : ''
@@ -66,7 +65,7 @@ export default function Tasks() {
                             </div>
                         </> : ''
                 }
-                
+
                 {filteredTasks.length > 0 ? (
                     filteredTasks.slice().reverse().map((task, index) => (
                         <TaskCard

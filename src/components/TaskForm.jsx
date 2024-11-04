@@ -1,5 +1,5 @@
 import { Loader2, X } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTask } from '../context/TaskProvider'
 import toast from 'react-hot-toast'
 
@@ -8,6 +8,22 @@ export default function TaskForm({ handleClose }) {
     const { tasks, user, newTask, setState, loading } = useTask()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+
+    const formRef = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (formRef.current && !formRef.current.contains(event.target)) {
+                handleClose()
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [handleClose]);
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -35,7 +51,7 @@ export default function TaskForm({ handleClose }) {
     return (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center mt-[-5rem] z-40'>
             <div
-                className="max-w-[95%] tudun mx-auto relative overflow-hidden z-10 bg-[#1b1b1b] p-8 rounded-lg  before:rounded-full before:-z-10 before:blur-2xl after:w-32 after:h-32 after:absolute  after:rounded-full after:-z-10 after:blur-xl after:top-24 after:-right-12">
+                className="max-w-[95%] tudun mx-auto relative overflow-hidden z-10 bg-[#1b1b1b] p-8 rounded-lg  before:rounded-full before:-z-10 before:blur-2xl after:w-32 after:h-32 after:absolute  after:rounded-full after:-z-10 after:blur-xl after:top-24 after:-right-12" ref={formRef}>
                 <span className='absolute right-1 top-1 cursor-pointer p-1 rounded-md opacity-30 hover:bg-gray-600' onClick={handleClose}>
                     <X /></span>
 
@@ -75,7 +91,7 @@ export default function TaskForm({ handleClose }) {
                         <button
                             className="bg-gradient-to-r bg-[#352e2ec1] tracking-wider text-white px-4 py-2 font-bold rounded-md hover:opacity-80 w-[120px] flex items-center justify-center gap-2"
                             type="submit">
-                           Create {loading ? <Loader2 size={16} className='loading' /> : ''}
+                            Create {loading ? <Loader2 size={16} className='loading' /> : ''}
                         </button>
                     </div>
                 </form>

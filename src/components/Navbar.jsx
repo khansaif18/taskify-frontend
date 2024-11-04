@@ -8,15 +8,22 @@ import toast from 'react-hot-toast'
 export default function Navbar({ }) {
     const location = useLocation()
     const nav = useNavigate()
-    const [dpUrl, setDpUrl] = useState('')
+    // const [dpUrl, setDpUrl] = useState('')
     // const [showProfile, setShowProfile] = useState(false)
-    const { tasks, user, setState, showSearch, setShowSearch, showFilter, setShowFilter, filter, setFilter, setSearchValue, setLoading, showDashboard, setShowDashboard } = useTask()
+    const { tasks, user, setState, showSearch, setShowSearch, showFilter, setShowFilter, filter, setFilter, setSearchValue, setLoading, setShowForm, showDashboard, setShowDashboard } = useTask()
 
     // useEffect(() => {
     //     setTimeout(() => {
     //         if (user) setDpUrl(user.photoURL)
     //     }, 2000);
     // }, [])
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
 
 
     return (
@@ -39,9 +46,11 @@ export default function Navbar({ }) {
                             <span style={showSearch ? { backgroundColor: '#5b21b6' } : { background: 'none' }}
 
                                 onClick={() => {
+                                    scrollToTop()
                                     setSearchValue('')
                                     setShowSearch(prev => !prev)
-                                    setShowDashboard(false)
+                                    // setShowDashboard(false)
+                                    // setShowForm(false)
                                 }} className={` ${location.pathname === '/' ? '' : 'invisible'}
                              p-2 rounded-md hover:bg-violet-500 duration-200 cursor-pointer 
                              ${tasks && tasks.length < 1 ? 'invisible ' : 'visible'}`}>
@@ -49,9 +58,11 @@ export default function Navbar({ }) {
                             </span>
 
                             <span style={showFilter ? { backgroundColor: '#5b21b6' } : { background: 'none' }} onClick={() => {
+                                scrollToTop()
                                 setShowFilter(!showFilter)
                                 setFilter({ ...filter, all: true, complete: false, incomplete: false })
-                                setShowDashboard(false)
+                                // setShowDashboard(false)
+                                // setShowForm(false)
                             }}
                                 className={` ${location.pathname === '/' ? '' : 'invisible'}
                                 ${tasks && tasks.length < 1 ? ' invisible ' : ' visible '}
@@ -61,6 +72,7 @@ export default function Navbar({ }) {
 
                             <span style={showDashboard ? { backgroundColor: '#5b21b6' } : { background: 'none' }} onClick={() => {
                                 setShowDashboard(prev => !prev)
+                                // setShowForm(false)
                             }}
                                 className={` ${location.pathname === '/' ? '' : 'invisible'}
                                 ${tasks && tasks.length < 1 ? ' invisible ' : ' visible '}
